@@ -10,6 +10,14 @@ enum MapData
     Grond
 }
 
+class ROOM
+{
+    public int room_num;        //番号(配列番号と一緒)
+    public Vector2Int startPos; //開始地点
+    public Vector2Int endPos;   //終了地点
+    public Vector2Int[] RoadPos;//つながっている全ての通路の座標
+}
+
 //public static TEnum ConvertToEnum<TEnum>(int number)
 //{
 //    return(TEnum) Enum.ToObject(typeof(TEnum), number);
@@ -31,18 +39,16 @@ public class MapCreate : MonoBehaviour {
     int MapWidth = 50;
     int MapHeight = 50;
 
-    int RoomCountMin = 10; //部屋の数
+    int roomsize;          //部屋の数
+    int RoomCountMin = 10; 
     int RoomCountMax = 15;
+    ROOM[] room;
 
-    int roomMinHeight = 5; //縦幅
+    int roomMinHeight = 5; //縦のふり幅
     int roomMaxHeight = 10;
 
-    int roomMinWidth = 5;  //横幅
+    int roomMinWidth = 5;  //横のふり幅
     int roomMaxWidth = 10;
-
-    //デバッグ変数
-    int x;
-    int y;
 
     //道の集合地点を増やしたいならこれを増やす
     int meetPointCount = 1;
@@ -53,6 +59,7 @@ public class MapCreate : MonoBehaviour {
         Parent = new GameObject("Map");
         Parent.transform.position = new Vector3(0, 0, 0);
 
+        //ダンジョンを生成
         ResetMapData();
         CreateSpaceData();
         CreateDangeon();
@@ -74,18 +81,14 @@ public class MapCreate : MonoBehaviour {
     {
         int roomCount = Random.Range(RoomCountMin, RoomCountMax); //部屋の数を決める
 
+        room = new ROOM[roomCount];
+
         int[] meetPointsX = new int[meetPointCount];
         int[] meetPointsY = new int[meetPointCount];
         for (int i = 0; i < meetPointsX.Length; i++)
         {
             meetPointsX[i] = Random.Range(MapWidth / 4, MapWidth * 3 / 4);
             meetPointsY[i] = Random.Range(MapHeight / 4, MapHeight * 3 / 4);
-
-            //debug
-            x = meetPointsX[i];
-            y = meetPointsY[i];
-            Debug.Log("" + meetPointsX[i] + " ++ " + meetPointsY[i]);
-            //
 
             Map[meetPointsY[i], meetPointsX[i]] = MapData.Road;
         }
@@ -100,34 +103,33 @@ public class MapCreate : MonoBehaviour {
             int roadStartPointX = Random.Range(roomPointX, roomPointX + roomWidth);
             int roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight);
 
-            bool isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY);
+            bool isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY); //部屋に通路を引くかどうか判断する
 
-            if (isRoad == false)
+            if (isRoad == false)//他の部屋と重なっていなかったら通路を作る
             {
                 CreateRoadData(roadStartPointX, roadStartPointY, meetPointsX[Random.Range(0, 0)], meetPointsY[Random.Range(0, 0)]);
             }
         }
-
-
     }
 
+    //Mapに部屋を作っていく
     private bool CreateRoomData(int roomHeight, int roomWidth, int roomPointX, int roomPointY)
     {
         bool isRoad = false;
         for (int i = 0; i < roomHeight; i++){
-            for (int j = 0; j < roomWidth; j++){
-                if (Map[roomPointY + i, roomPointX + j] == MapData.Road){
+            for (int k = 0; k < roomWidth; k++){
+                if (Map[roomPointY + i, roomPointX + k] == MapData.Road){ //重なっている部屋があったら出入り口の道を作らないようにする
                     isRoad = true;
                 }
-                else
-                {
-                    Map[roomPointY + i, roomPointX + j] = MapData.Room;
+                else{
+                    Map[roomPointY + i, roomPointX + k] = MapData.Road;   //部屋のステータスを代入する
                 }
             }
         }
         return isRoad;
     }
 
+    //Mapに通路を作っていく
     private void CreateRoadData(int roadStartPointX, int roadStartPointY, int meetPointX, int meetPointY)
     {
         bool isRight;
@@ -220,14 +222,8 @@ public class MapCreate : MonoBehaviour {
                 if (Map[i, k] == MapData.Wall)
                 {
                     Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
+                    Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
                 }
-
-                //デバック用
-                if (i == x && k == y)
-                {
-                    //Instantiate(GroundObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform);
-                }
-
                 Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
             }
         }
