@@ -2,55 +2,77 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum MapData
+{
+    Room ,
+    Wall ,
+    Road ,
+    Grond
+}
+
+//public static TEnum ConvertToEnum<TEnum>(int number)
+//{
+//    return(TEnum) Enum.ToObject(typeof(TEnum), number);
+//}
+
 public class MapCreate : MonoBehaviour {
 
+    [SerializeField] private GameObject Player;      //プレイヤーキャラクター本体
     [SerializeField] private GameObject WallObject;  //壁のオブジェクト
     [SerializeField] private GameObject GroundObject;//地面のオブジェクト
-    [SerializeField] private GameObject Parent;      //大量のオブジェが生産されるので適当なオブジェの階層下で生成させる
+    [SerializeField] private float CrackLength;      //オブジェクト同士の隙間距離
 
+    private GameObject Parent;//大量のオブジェが生産されるのでこの階層下で生成させる
+
+    //Mapのデータ
+    MapData[,] Map;
+
+    //Mapの大きさ
     int MapWidth = 50;
     int MapHeight = 50;
 
-    int[,] Map;
+    int RoomCountMin = 10; //部屋の数
+    int RoomCountMax = 15;
 
-    //enumにする
-    int wall = 9;
-    int road = 0;
-
-    int roomMinHeight = 5;
+    int roomMinHeight = 5; //縦幅
     int roomMaxHeight = 10;
 
-    int roomMinWidth = 5;
+    int roomMinWidth = 5;  //横幅
     int roomMaxWidth = 10;
 
-    int RoomCountMin = 10;
-    int RoomCountMax = 15;
+    //デバッグ変数
+    int x;
+    int y;
 
     //道の集合地点を増やしたいならこれを増やす
     int meetPointCount = 1;
 
     void Start()
     {
+        //たくさんクローンオブジェクトが生成されてヒエラルキーが見にくくなるので親オブジェクトを作っておく
+        Parent = new GameObject("Map");
+        Parent.transform.position = new Vector3(0, 0, 0);
+
         ResetMapData();
         CreateSpaceData();
         CreateDangeon();
     }
 
+    //Mapデータのリセット
     private void ResetMapData()
     {
-        Map = new int[MapHeight, MapWidth];
-        for (int i = 0; i < MapHeight; i++)
-        {
-            for (int j = 0; j < MapWidth; j++)
-            {
-                Map[i, j] = wall;
+        Map = new MapData[MapHeight, MapWidth];
+        for (int i = 0; i < MapHeight; i++){
+            for (int k = 0; k < MapWidth; k++){
+                Map[i, k] = MapData.Wall;
             }
         }
     }
 
+    //部屋のスペースを作る
     private void CreateSpaceData()
     {
-        int roomCount = Random.Range(RoomCountMin, RoomCountMax);
+        int roomCount = Random.Range(RoomCountMin, RoomCountMax); //部屋の数を決める
 
         int[] meetPointsX = new int[meetPointCount];
         int[] meetPointsY = new int[meetPointCount];
@@ -58,7 +80,14 @@ public class MapCreate : MonoBehaviour {
         {
             meetPointsX[i] = Random.Range(MapWidth / 4, MapWidth * 3 / 4);
             meetPointsY[i] = Random.Range(MapHeight / 4, MapHeight * 3 / 4);
-            Map[meetPointsY[i], meetPointsX[i]] = road;
+
+            //debug
+            x = meetPointsX[i];
+            y = meetPointsY[i];
+            Debug.Log("" + meetPointsX[i] + " ++ " + meetPointsY[i]);
+            //
+
+            Map[meetPointsY[i], meetPointsX[i]] = MapData.Road;
         }
 
         for (int i = 0; i < roomCount; i++)
@@ -85,17 +114,14 @@ public class MapCreate : MonoBehaviour {
     private bool CreateRoomData(int roomHeight, int roomWidth, int roomPointX, int roomPointY)
     {
         bool isRoad = false;
-        for (int i = 0; i < roomHeight; i++)
-        {
-            for (int j = 0; j < roomWidth; j++)
-            {
-                if (Map[roomPointY + i, roomPointX + j] == road)
-                {
+        for (int i = 0; i < roomHeight; i++){
+            for (int j = 0; j < roomWidth; j++){
+                if (Map[roomPointY + i, roomPointX + j] == MapData.Road){
                     isRoad = true;
                 }
                 else
                 {
-                    Map[roomPointY + i, roomPointX + j] = road;
+                    Map[roomPointY + i, roomPointX + j] = MapData.Room;
                 }
             }
         }
@@ -104,7 +130,6 @@ public class MapCreate : MonoBehaviour {
 
     private void CreateRoadData(int roadStartPointX, int roadStartPointY, int meetPointX, int meetPointY)
     {
-
         bool isRight;
         if (roadStartPointX > meetPointX)
         {
@@ -129,8 +154,7 @@ public class MapCreate : MonoBehaviour {
 
             while (roadStartPointX != meetPointX)
             {
-
-                Map[roadStartPointY, roadStartPointX] = road;
+                Map[roadStartPointY, roadStartPointX] = MapData.Road;
                 if (isRight == true)
                 {
                     roadStartPointX--;
@@ -139,13 +163,11 @@ public class MapCreate : MonoBehaviour {
                 {
                     roadStartPointX++;
                 }
-
             }
 
             while (roadStartPointY != meetPointY)
             {
-
-                Map[roadStartPointY, roadStartPointX] = road;
+                Map[roadStartPointY, roadStartPointX] = MapData.Road;
                 if (isUnder == true)
                 {
                     roadStartPointY++;
@@ -155,15 +177,13 @@ public class MapCreate : MonoBehaviour {
                     roadStartPointY--;
                 }
             }
-
         }
         else
         {
 
             while (roadStartPointY != meetPointY)
             {
-
-                Map[roadStartPointY, roadStartPointX] = road;
+                Map[roadStartPointY, roadStartPointX] = MapData.Road;
                 if (isUnder == true)
                 {
                     roadStartPointY++;
@@ -177,7 +197,7 @@ public class MapCreate : MonoBehaviour {
             while (roadStartPointX != meetPointX)
             {
 
-                Map[roadStartPointY, roadStartPointX] = road;
+                Map[roadStartPointY, roadStartPointX] = MapData.Road;
                 if (isRight == true)
                 {
                     roadStartPointX--;
@@ -192,26 +212,23 @@ public class MapCreate : MonoBehaviour {
         }
     }
 
+    //ダンジョンをオブジェクトに起こして生成する
     private void CreateDangeon()
     {
         for (int i = 0; i < MapHeight; i++){
-            for (int j = 0; j < MapWidth; j++){
-                if (Parent != null)
+            for (int k = 0; k < MapWidth; k++){
+                if (Map[i, k] == MapData.Wall)
                 {
-                    if (Map[i, j] == wall)
-                    {
-                        Instantiate(WallObject, new Vector3(j * 1.1f, 0, i * 1.1f), Quaternion.identity, Parent.transform);
-                    }
-                    Instantiate(GroundObject, new Vector3(j * 1.1f, -1, i * 1.1f), Quaternion.identity, Parent.transform);
+                    Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
                 }
-                else
+
+                //デバック用
+                if (i == x && k == y)
                 {
-                    if (Map[i, j] == wall)
-                    {
-                        Instantiate(WallObject, new Vector3(j * 1.1f, 0, i * 1.1f), Quaternion.identity);
-                    }
-                    Instantiate(GroundObject, new Vector3(j * 1.1f, -1, i * 1.1f), Quaternion.identity);
+                    //Instantiate(GroundObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform);
                 }
+
+                Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
             }
         }
     }
