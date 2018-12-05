@@ -18,12 +18,13 @@ class ROOM
     public Vector2Int[] RoadPos;//つながっている全ての通路の座標
 }
 
-//public static TEnum ConvertToEnum<TEnum>(int number)
-//{
-//    return(TEnum) Enum.ToObject(typeof(TEnum), number);
-//}
 
 public class MapCreate : MonoBehaviour {
+
+    public static TEnum ConvertToEnum<TEnum>(int number)
+    {
+        return (TEnum)System.Enum.ToObject(typeof(TEnum), number);
+    }
 
     [SerializeField] private GameObject Player;      //プレイヤーキャラクター本体
     [SerializeField] private GameObject WallObject;  //壁のオブジェクト

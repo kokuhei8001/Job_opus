@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-
     [SerializeField]
     GameObject Attack;
     [SerializeField]
@@ -19,7 +18,7 @@ public class PlayerMove : MonoBehaviour
             Attack.SetActive(false);
         }
     }
-    void FixedUpdate()
+    void Update()
     {
         body = GetComponent<Rigidbody>();
         //float x = Input.GetAxis("Horizontal");
@@ -57,10 +56,15 @@ public class PlayerMove : MonoBehaviour
             //しゃがみ処理
         }
 
+        //リスポーンキー
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            transform.position = new Vector3(0, 5, 10);
+        }
+
         if (Attack != null)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
+            if (Input.GetKeyDown(KeyCode.Space)){
                 //攻撃
                 Attack.SetActive(true);
             }
