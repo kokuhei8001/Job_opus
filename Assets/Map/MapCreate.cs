@@ -21,6 +21,7 @@ class ROOM
 
 public class MapCreate : MonoBehaviour {
 
+    //Intからenumへ
     public static TEnum ConvertToEnum<TEnum>(int number)
     {
         return (TEnum)System.Enum.ToObject(typeof(TEnum), number);
@@ -52,7 +53,7 @@ public class MapCreate : MonoBehaviour {
     int roomMaxWidth = 10;
 
     //道の集合地点を増やしたいならこれを増やす
-    int meetPointCount = 1;
+    int meetPointCount = 2;
 
     void Start()
     {
@@ -65,6 +66,18 @@ public class MapCreate : MonoBehaviour {
         CreateSpaceData();
         CreateDangeon();
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Destroy(Parent);
+            ResetMapData();
+            CreateSpaceData();
+            CreateDangeon();
+        }
+    }
+
 
     //Mapデータのリセット
     private void ResetMapData()
@@ -82,7 +95,7 @@ public class MapCreate : MonoBehaviour {
     {
         int roomCount = Random.Range(RoomCountMin, RoomCountMax); //部屋の数を決める
 
-        room = new ROOM[roomCount];
+        room = new ROOM[roomCount];//Mapデータの配列
 
         int[] meetPointsX = new int[meetPointCount];
         int[] meetPointsY = new int[meetPointCount];
@@ -96,13 +109,13 @@ public class MapCreate : MonoBehaviour {
 
         for (int i = 0; i < roomCount; i++)
         {
-            int roomHeight = Random.Range(roomMinHeight, roomMaxHeight);
-            int roomWidth = Random.Range(roomMinWidth, roomMaxWidth);
-            int roomPointX = Random.Range(2, MapWidth - roomMaxWidth - 2);
-            int roomPointY = Random.Range(2, MapWidth - roomMaxWidth - 2);
+            int roomHeight = Random.Range(roomMinHeight, roomMaxHeight);    //高さ
+            int roomWidth  = Random.Range(roomMinWidth, roomMaxWidth);       //横幅
+            int roomPointX = Random.Range(2, MapWidth - roomMaxWidth - 2);  //部屋のｘ位置
+            int roomPointY = Random.Range(2, MapWidth - roomMaxWidth - 2);  //部屋のｙ位置
 
-            int roadStartPointX = Random.Range(roomPointX, roomPointX + roomWidth);
-            int roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight);
+            int roadStartPointX = Random.Range(roomPointX, roomPointX + roomWidth);  //部屋に通路を繋ぐ位置
+            int roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight); 
 
             bool isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY); //部屋に通路を引くかどうか判断する
 
@@ -133,87 +146,62 @@ public class MapCreate : MonoBehaviour {
     //Mapに通路を作っていく
     private void CreateRoadData(int roadStartPointX, int roadStartPointY, int meetPointX, int meetPointY)
     {
-        bool isRight;
-        if (roadStartPointX > meetPointX)
-        {
+        bool isRight; //左右を調べる
+        if (roadStartPointX > meetPointX){
             isRight = true;
-        }
-        else
-        {
+        } else {
             isRight = false;
         }
-        bool isUnder;
-        if (roadStartPointY > meetPointY)
-        {
+
+        bool isUnder; //上下を調べる
+        if (roadStartPointY > meetPointY){
             isUnder = false;
-        }
-        else
-        {
+        } else {
             isUnder = true;
         }
 
-        if (Random.Range(0, 2) == 0)
-        {
-
+        if (Random.Range(0, 2) == 0){
             while (roadStartPointX != meetPointX)
             {
                 Map[roadStartPointY, roadStartPointX] = MapData.Road;
-                if (isRight == true)
-                {
+                if (isRight == true){
                     roadStartPointX--;
-                }
-                else
-                {
+                } else {
                     roadStartPointX++;
                 }
             }
-
             while (roadStartPointY != meetPointY)
             {
                 Map[roadStartPointY, roadStartPointX] = MapData.Road;
-                if (isUnder == true)
-                {
+                if (isUnder == true){
                     roadStartPointY++;
-                }
-                else
-                {
+                } else {
                     roadStartPointY--;
                 }
             }
         }
         else
         {
-
             while (roadStartPointY != meetPointY)
             {
                 Map[roadStartPointY, roadStartPointX] = MapData.Road;
-                if (isUnder == true)
-                {
+                if (isUnder == true){
                     roadStartPointY++;
-                }
-                else
-                {
+                }else{
                     roadStartPointY--;
                 }
             }
-
             while (roadStartPointX != meetPointX)
             {
-
                 Map[roadStartPointY, roadStartPointX] = MapData.Road;
-                if (isRight == true)
-                {
+                if (isRight == true){
                     roadStartPointX--;
-                }
-                else
-                {
+                }else{
                     roadStartPointX++;
                 }
-
             }
-
-        }
-    }
+        }//if()else
+    }//void CreatRoadData
 
     //ダンジョンをオブジェクトに起こして生成する
     private void CreateDangeon()
