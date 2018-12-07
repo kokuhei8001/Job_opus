@@ -10,12 +10,12 @@ enum MapData
     Grond
 }
 
-class ROOM
+public class ROOM
 {
-    public int Room_num;        //番号(配列番号と一緒)
-    public Vector2Int Pos; //開始地点
+    public int Room_num;    //番号(配列番号と一緒)
+    public Vector2Int Pos;  //開始地点
     public Vector2Int Size; //部屋のサイズ
-    public Vector2Int[] RoadPos;//つながっている全ての通路の座標
+    //public Vector2Int[] RoadPos;//つながっている全ての通路の座標
 }
 
 
@@ -36,7 +36,7 @@ public class MapCreate : MonoBehaviour {
 
     //Mapのデータ
     MapData[,] Map;
-    ROOM[] room = new ROOM[50];
+    ROOM[] room;
 
     //Mapの大きさ
     int MapWidth = 50;
@@ -54,7 +54,7 @@ public class MapCreate : MonoBehaviour {
 
     //道の集合地点を増やしたいならこれを増やす
     int meetPointCount = 1;
-
+    
     void Start()
     {
         //たくさんクローンオブジェクトが生成されてヒエラルキーが見にくくなるので親オブジェクトを作っておく
@@ -119,10 +119,11 @@ public class MapCreate : MonoBehaviour {
             int roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight);
 
             //部屋のデータ
+            room[i] = new ROOM();
             room[i].Room_num = i;
             room[i].Pos = new Vector2Int(roomPointX, roomPointY);
             room[i].Size = new Vector2Int(roomHeight, roomWidth);
-            room[i].RoadPos[0] = new Vector2Int(roadStartPointX, roadStartPointY);
+            //room[i].RoadPos[0] = new Vector2Int(roadStartPointX, roadStartPointY);
             //ここまで
 
             bool isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY); //部屋に通路を引くかどうか判断する

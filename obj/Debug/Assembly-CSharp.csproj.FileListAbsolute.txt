@@ -165,3 +165,4 @@ D:\Vantan 授業用\unity制作\Job_opus\obj\Debug\Assembly-CSharp.csproj.CoreCo
 D:\Vantan 授業用\unity制作\Job_opus\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Vantan 授業用\unity制作\Job_opus\obj\Debug\Assembly-CSharp.dll
 D:\Vantan 授業用\unity制作\Job_opus\obj\Debug\Assembly-CSharp.pdb
+D:\Vantan 授業用\unity制作\Job_opus\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
