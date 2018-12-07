@@ -12,9 +12,9 @@ enum MapData
 
 class ROOM
 {
-    public int room_num;        //番号(配列番号と一緒)
-    public Vector2Int startPos; //開始地点
-    public Vector2Int endPos;   //終了地点
+    public int Room_num;        //番号(配列番号と一緒)
+    public Vector2Int Pos; //開始地点
+    public Vector2Int Size; //部屋のサイズ
     public Vector2Int[] RoadPos;//つながっている全ての通路の座標
 }
 
@@ -27,25 +27,25 @@ public class MapCreate : MonoBehaviour {
         return (TEnum)System.Enum.ToObject(typeof(TEnum), number);
     }
 
-    [SerializeField] private GameObject Player;      //プレイヤーキャラクター本体
-    [SerializeField] private GameObject WallObject;  //壁のオブジェクト
-    [SerializeField] private GameObject GroundObject;//地面のオブジェクト
-    [SerializeField] private float CrackLength;      //オブジェクト同士の隙間距離
+    [SerializeField] private GameObject Player = null;      //プレイヤーキャラクター本体
+    [SerializeField] private GameObject WallObject = null;  //壁のオブジェクト
+    [SerializeField] private GameObject GroundObject = null;//地面のオブジェクト
+    [SerializeField] private float CrackLength = 0.0f;      //オブジェクト同士の隙間距離
 
     private GameObject Parent;//大量のオブジェが生産されるのでこの階層下で生成させる
 
     //Mapのデータ
     MapData[,] Map;
+    ROOM[] room = new ROOM[50];
 
     //Mapの大きさ
     int MapWidth = 50;
     int MapHeight = 50;
 
-    int roomsize;          //部屋の数
+    int roomCount;          //部屋の数
     int RoomCountMin = 10; 
     int RoomCountMax = 15;
-    ROOM[] room;
-
+    
     int roomMinHeight = 5; //縦のふり幅
     int roomMaxHeight = 10;
 
@@ -53,7 +53,7 @@ public class MapCreate : MonoBehaviour {
     int roomMaxWidth = 10;
 
     //道の集合地点を増やしたいならこれを増やす
-    int meetPointCount = 2;
+    int meetPointCount = 1;
 
     void Start()
     {
@@ -65,15 +65,16 @@ public class MapCreate : MonoBehaviour {
         ResetMapData();
         CreateSpaceData();
         CreateDangeon();
+        PlayerPop();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Destroy(Parent);
             ResetMapData();
             CreateSpaceData();
+            Destroy(Parent);
             CreateDangeon();
         }
     }
@@ -93,7 +94,7 @@ public class MapCreate : MonoBehaviour {
     //部屋のスペースを作る
     private void CreateSpaceData()
     {
-        int roomCount = Random.Range(RoomCountMin, RoomCountMax); //部屋の数を決める
+        roomCount = Random.Range(RoomCountMin, RoomCountMax); //部屋の数を決める
 
         room = new ROOM[roomCount];//Mapデータの配列
 
@@ -115,7 +116,14 @@ public class MapCreate : MonoBehaviour {
             int roomPointY = Random.Range(2, MapWidth - roomMaxWidth - 2);  //部屋のｙ位置
 
             int roadStartPointX = Random.Range(roomPointX, roomPointX + roomWidth);  //部屋に通路を繋ぐ位置
-            int roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight); 
+            int roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight);
+
+            //部屋のデータ
+            room[i].Room_num = i;
+            room[i].Pos = new Vector2Int(roomPointX, roomPointY);
+            room[i].Size = new Vector2Int(roomHeight, roomWidth);
+            room[i].RoadPos[0] = new Vector2Int(roadStartPointX, roadStartPointY);
+            //ここまで
 
             bool isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY); //部屋に通路を引くかどうか判断する
 
@@ -207,14 +215,37 @@ public class MapCreate : MonoBehaviour {
     private void CreateDangeon()
     {
         for (int i = 0; i < MapHeight; i++){
-            for (int k = 0; k < MapWidth; k++){
-                if (Map[i, k] == MapData.Wall)
+            for (int k = 0; k < MapWidth; k++)
+            {
+                if (Parent != null)
                 {
-                    Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
-                    Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
+                    if (Map[i, k] == MapData.Wall)
+                    {
+                        Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
+                        Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
+                    }
+                    Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
+                } else {
+                    //たくさんクローンオブジェクトが生成されてヒエラルキーが見にくくなるので親オブジェクトを作っておく
+                    Parent = new GameObject("Map");
+                    Parent.transform.position = new Vector3(0, 0, 0);
+                    if (Map[i, k] == MapData.Wall)
+                    {
+                        Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
+                        Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
+                    }
+                    Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
                 }
-                Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
             }
         }
+    }
+
+    //Playerのポップ
+    private void PlayerPop()
+    {
+        int PopRoom = Random.Range(0, roomCount);
+        int PopPosX = Random.Range(room[PopRoom].Pos.x,room[PopRoom].Size.x);
+        int PopPosY = Random.Range(room[PopRoom].Pos.y, room[PopRoom].Size.y);
+        Instantiate(Player, new Vector3(PopPosX * CrackLength, 1 , PopPosY * CrackLength), Quaternion.identity);
     }
 }

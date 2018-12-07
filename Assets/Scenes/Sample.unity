@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a610a9bda8af7e445aafb41e223714cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  Player: {fileID: 1550180044821870, guid: 86f878225f8b83b4f819b9c83b5075d4, type: 2}
   WallObject: {fileID: 1288550656310186, guid: f85b41cdca3d3614eb7b0dcde50d2403, type: 2}
   GroundObject: {fileID: 1586012944703218, guid: 03686c51b81739148960396751231694,
     type: 2}
