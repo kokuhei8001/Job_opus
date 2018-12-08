@@ -113,6 +113,48 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &106659151
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4685327778086604, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685327778086604, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685327778086604, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685327778086604, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685327778086604, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.1464466
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685327778086604, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.35355338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685327778086604, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.8535535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685327778086604, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 520869e49e462f24b9232f751221cf59, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &376713082
 AudioListener:
   m_ObjectHideFlags: 0
@@ -284,6 +326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1550180044821870, guid: 86f878225f8b83b4f819b9c83b5075d4, type: 2}
+  Enemy: {fileID: 1856012496675174, guid: 73be9b517f74db04bbea56a5bbac1bc5, type: 2}
+  Goal: {fileID: 2017292227}
   WallObject: {fileID: 1288550656310186, guid: f85b41cdca3d3614eb7b0dcde50d2403, type: 2}
   GroundObject: {fileID: 1586012944703218, guid: 03686c51b81739148960396751231694,
     type: 2}
@@ -301,3 +345,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2017292227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1731358414272358, guid: 520869e49e462f24b9232f751221cf59,
+    type: 2}
+  m_PrefabInternal: {fileID: 106659151}

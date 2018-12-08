@@ -28,6 +28,8 @@ public class MapCreate : MonoBehaviour {
     }
 
     [SerializeField] private GameObject Player = null;      //プレイヤーキャラクター本体
+    [SerializeField] private GameObject Enemy = null;       //エネミーキャラクター本体
+    [SerializeField] private GameObject Goal = null;        //ゴールのオブジェクト
     [SerializeField] private GameObject WallObject = null;  //壁のオブジェクト
     [SerializeField] private GameObject GroundObject = null;//地面のオブジェクト
     [SerializeField] private float CrackLength = 0.0f;      //オブジェクト同士の隙間距離
@@ -35,25 +37,29 @@ public class MapCreate : MonoBehaviour {
     private GameObject Parent;//大量のオブジェが生産されるのでこの階層下で生成させる
 
     //Mapのデータ
-    MapData[,] Map;
-    ROOM[] room;
+    private MapData[,] Map;
+    private ROOM[] room;
 
     //Mapの大きさ
-    int MapWidth = 50;
-    int MapHeight = 50;
+    private int MapWidth = 50;
+    private int MapHeight = 50;
 
-    int roomCount;          //部屋の数
-    int RoomCountMin = 10; 
-    int RoomCountMax = 15;
+    private int roomCount;          //部屋の数
+    private int RoomCountMin = 10; 
+    private int RoomCountMax = 15;
+
+    private int roomMinHeight = 5; //縦のふり幅
+    private int roomMaxHeight = 10;
+     
+    private int roomMinWidth = 5;  //横のふり幅
+    private int roomMaxWidth = 10;
     
-    int roomMinHeight = 5; //縦のふり幅
-    int roomMaxHeight = 10;
-
-    int roomMinWidth = 5;  //横のふり幅
-    int roomMaxWidth = 10;
-
     //道の集合地点を増やしたいならこれを増やす
-    int meetPointCount = 1;
+    private int meetPointCount = 1;
+
+    //Playerがポップする部屋の番号s
+    private int PlayerPopRoom = 0;
+
     
     void Start()
     {
@@ -66,18 +72,20 @@ public class MapCreate : MonoBehaviour {
         CreateSpaceData();
         CreateDangeon();
         PlayerPop();
+        EnemyPop();
+        GorlPop();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ResetMapData();
-            CreateSpaceData();
-            Destroy(Parent);
-            CreateDangeon();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        ResetMapData();
+    //        CreateSpaceData();
+    //        Destroy(Parent);
+    //        CreateDangeon();
+    //    }
+    //}
 
 
     //Mapデータのリセット
@@ -244,9 +252,58 @@ public class MapCreate : MonoBehaviour {
     //Playerのポップ
     private void PlayerPop()
     {
-        int PopRoom = Random.Range(0, roomCount);
-        int PopPosX = Random.Range(room[PopRoom].Pos.x,room[PopRoom].Size.x);
-        int PopPosY = Random.Range(room[PopRoom].Pos.y, room[PopRoom].Size.y);
+        PlayerPopRoom = Random.Range(0, roomCount);
+        int PopPosX = Random.Range(room[PlayerPopRoom].Pos.x,room[PlayerPopRoom].Size.x);
+        int PopPosY = Random.Range(room[PlayerPopRoom].Pos.y,room[PlayerPopRoom].Size.y);
         Instantiate(Player, new Vector3(PopPosX * CrackLength, 1 , PopPosY * CrackLength), Quaternion.identity);
     }
+
+    //Enemyのポップ
+    private void EnemyPop()
+    {
+        int EnemyPopRoom;
+        if (Random.Range(0, 2) == 0)
+        {
+            if (PlayerPopRoom != 0)
+            {
+                EnemyPopRoom = Random.Range(0, PlayerPopRoom);
+            } else {
+                EnemyPopRoom = Random.Range(PlayerPopRoom, roomCount);
+            }
+        }
+        else
+        {
+            EnemyPopRoom = Random.Range(PlayerPopRoom, roomCount);
+        }
+
+        int PopPosX = Random.Range(room[EnemyPopRoom].Pos.x, room[EnemyPopRoom].Size.x);
+        int PopPosY = Random.Range(room[EnemyPopRoom].Pos.y, room[EnemyPopRoom].Size.y);
+        Instantiate(Enemy, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
+    }
+    
+    //ゴールの生成
+    void GorlPop()
+    {
+        int GoalPopRoom;
+        if (Random.Range(0, 2) == 0)
+        {
+            if (PlayerPopRoom != 0)
+            {
+                GoalPopRoom = Random.Range(0, PlayerPopRoom);
+            }
+            else
+            {
+                GoalPopRoom = Random.Range(PlayerPopRoom, roomCount);
+            }
+        }
+        else
+        {
+            GoalPopRoom = Random.Range(PlayerPopRoom, roomCount);
+        }
+
+        int PopPosX = Random.Range(room[GoalPopRoom].Pos.x, room[GoalPopRoom].Size.x);
+        int PopPosY = Random.Range(room[GoalPopRoom].Pos.y, room[GoalPopRoom].Size.y);
+        Instantiate(Goal, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength),Quaternion.Euler(45,0,45)); //identityだと回転軸が０，０，０に戻されてしまう
+    }
+
 }

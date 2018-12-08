@@ -62,8 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Enemy\enemy_script.cs" />
+    <Compile Include="Assets\Map\Goal.cs" />
     <Compile Include="Assets\Map\MapCreate.cs" />
     <Compile Include="Assets\Player\PlayerMove.cs" />
+    <None Include="Assets\JpbOpus作業リスト.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Vantan 授業用/unity制作/Job_opus/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
