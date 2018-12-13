@@ -332,6 +332,7 @@ MonoBehaviour:
   GroundObject: {fileID: 1586012944703218, guid: 03686c51b81739148960396751231694,
     type: 2}
   CrackLength: 1
+  EnemySize: 3
 --- !u!4 &1770424869
 Transform:
   m_ObjectHideFlags: 0

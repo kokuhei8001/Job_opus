@@ -8,7 +8,7 @@ public class Goal : MonoBehaviour {
     private void Update()
     {
         //分かりやすいように回転させる
-        transform.Rotate(new Vector3(0, 0.2f, 0),Space.World);
+        transform.Rotate(new Vector3(0, -1.0f, 0),Space.World);
     }
 
     private void OnTriggerEnter(Collider other)

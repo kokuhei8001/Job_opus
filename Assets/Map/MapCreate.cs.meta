@@ -6,6 +6,7 @@ MonoImporter:
   defaultReferences:
   - Player: {fileID: 1550180044821870, guid: 86f878225f8b83b4f819b9c83b5075d4, type: 2}
   - Enemy: {fileID: 1856012496675174, guid: 73be9b517f74db04bbea56a5bbac1bc5, type: 2}
+  - Goal: {fileID: 1731358414272358, guid: 520869e49e462f24b9232f751221cf59, type: 2}
   - WallObject: {fileID: 1288550656310186, guid: f85b41cdca3d3614eb7b0dcde50d2403,
       type: 2}
   - GroundObject: {fileID: 1586012944703218, guid: 03686c51b81739148960396751231694,
