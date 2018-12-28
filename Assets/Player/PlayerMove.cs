@@ -20,6 +20,8 @@ public class PlayerMove : MonoBehaviour
     }
     void Update()
     {
+        RayTest();
+
         body = GetComponent<Rigidbody>();
         //float x = Input.GetAxis("Horizontal");
         //float y = Input.GetAxis("Vertical");
@@ -70,5 +72,33 @@ public class PlayerMove : MonoBehaviour
             }
             else { Attack.SetActive(false); }
         }
+    }
+
+    void RayTest()
+    {
+        //Rayの作成
+        Ray ray = new Ray(transform.position, transform.forward);
+
+        //Rayが衝突したコライダーの情報を得る
+        RaycastHit hit;
+        int distance = 5;
+
+        Debug.DrawLine(ray.origin, ray.direction * distance, Color.red);
+
+        //衝突したら
+        if (Physics.Raycast(ray, out hit, distance))
+        {
+            if (hit.collider.tag == "Wall")
+            {
+                Debug.Log("壁に当たりました");
+            }
+        }
+
+        ////Unity reference
+        //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        //{
+        //    Debug.DrawLine(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+        //    Debug.Log("Did Hit");
+        //}
     }
 }
