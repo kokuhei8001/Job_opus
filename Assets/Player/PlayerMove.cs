@@ -5,47 +5,36 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
-    GameObject Attack;
-    [SerializeField]
     private float speed = 20.0f;
 
     Rigidbody body;
-
-    void Start()
-    {
-        if (Attack != null)
-        {
-            Attack.SetActive(false);
-        }
-    }
+    
     void Update()
     {
-        RayTest();
-
         body = GetComponent<Rigidbody>();
-        //float x = Input.GetAxis("Horizontal");
-        //float y = Input.GetAxis("Vertical");
+
+        //移動について
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            body.MovePosition(transform.position + (transform.forward * Time.deltaTime) * speed);
+            Moov("forward");
         }
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            body.MovePosition(transform.position + (transform.forward * -Time.deltaTime) * speed);
+            Moov("back");
         }
-
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            body.MovePosition(transform.position + (transform.right * Time.deltaTime) * speed);
+            Moov("right");
         }
-        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            body.MovePosition(transform.position + (transform.right * -Time.deltaTime) * speed);
+            Moov("left");
         }
 
+        //回転
         if (Input.GetKey(KeyCode.E))
         {
-            transform.Rotate(new Vector3(0,5,0));
+            transform.Rotate(new Vector3(0, 5, 0));
         }
         if (Input.GetKey(KeyCode.Q))
         {
@@ -63,42 +52,60 @@ public class PlayerMove : MonoBehaviour
         {
             transform.position = new Vector3(0, 5, 10);
         }
-
-        if (Attack != null)
-        {
-            if (Input.GetKeyDown(KeyCode.Space)){
-                //攻撃
-                Attack.SetActive(true);
-            }
-            else { Attack.SetActive(false); }
-        }
     }
 
-    void RayTest()
+    void Moov(string dirction)
     {
-        //Rayの作成
-        Ray ray = new Ray(transform.position, transform.forward);
+        //方向を決める
+        Vector3 dir = new Vector3();
+        switch (dirction)
+        {
+            case "forward":
+                dir = transform.forward;
+                break;
 
-        //Rayが衝突したコライダーの情報を得る
+            case "back":
+                dir = -transform.forward;
+                break;
+
+            case "right":
+                dir = transform.right;
+                break;
+
+            case "left":
+                dir = -transform.right;
+                break;
+        }
+        if (MoovRay(dir))//Rayを飛ばして先が壁かどうか調べる
+        {
+            body.MovePosition(transform.position + (dir * Time.deltaTime) * speed);
+        }
+    }
+    
+    bool MoovRay(Vector3 dirction)
+    {
+        Ray ray = new Ray(transform.position, dirction);
         RaycastHit hit;
-        int distance = 5;
+        float distance = 0.75f; //0.75fが完璧
 
-        Debug.DrawLine(ray.origin, ray.direction * distance, Color.red);
+        //Debug用ライン
+        Debug.DrawRay(transform.position, dirction * distance, Color.red);
 
         //衝突したら
         if (Physics.Raycast(ray, out hit, distance))
         {
-            if (hit.collider.tag == "Wall")
+            if (hit.collider.tag == "Wall")//壁だったら
             {
-                Debug.Log("壁に当たりました");
+                return false;
+            }
+            else//それ以外だったら
+            {
+                return true;
             }
         }
-
-        ////Unity reference
-        //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
-        //{
-        //    Debug.DrawLine(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-        //    Debug.Log("Did Hit");
-        //}
+        else//衝突しなければ
+        {
+            return true;
+        }
     }
 }
