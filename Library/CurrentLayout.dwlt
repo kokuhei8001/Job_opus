@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 107
+  controlID: 84
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 781
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
 MonoBehaviour:
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 108
+  controlID: 85
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 221}
   m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 109
+  controlID: 86
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -354,19 +354,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Player
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Player
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: "D:\\Vantan \u6388\u696D\u7528\\unity\u5236\u4F5C\\Job_opus"
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 4}
-    m_SelectedIDs: 4c2b0000
-    m_LastClickedID: 11084
+    m_SelectedIDs: f8290000
+    m_LastClickedID: 10744
     m_ExpandedIDs: 00000000f82900002e2a00004c2b0000662b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000000000002e300000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -511,23 +511,23 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 4ea1f6ff
-    m_LastClickedID: -614066
-    m_ExpandedIDs: eccafbffb8cffcffaee7fdff16eefeffcefbffff00000000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: c6b2f7ffe4fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Player(Clone)
+      m_OriginalName: Player(Clone)
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -544058
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 4}
     m_SearchString: 
@@ -563,14 +563,14 @@ MonoBehaviour:
     height: 433
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 5545.308193366333
+  lastFramingTime: 3328.559772211594
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 22.712769, y: -0.5639057, z: 28.67206}
+    m_Target: {x: 9.581978, y: 0.19242118, z: 25.984968}
     speed: 2
-    m_Value: {x: 22.712769, y: -0.5639057, z: 28.67206}
+    m_Value: {x: 9.581978, y: 0.19242118, z: 25.984968}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -598,13 +598,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.14240812, y: -0.85416263, z: 0.39258114, w: -0.3098487}
+    m_Target: {x: 0.22027831, y: 0.6375965, z: -0.19745295, w: 0.71130896}
     speed: 2
-    m_Value: {x: -0.14240812, y: -0.85416263, z: 0.39258114, w: -0.3098487}
+    m_Value: {x: 0.22027832, y: 0.63759655, z: -0.19745296, w: 0.711309}
   m_Size:
-    m_Target: 2.2315874
+    m_Target: 4.0416584
     speed: 2
-    m_Value: 2.2315874
+    m_Value: 4.0416584
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -663,7 +663,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
