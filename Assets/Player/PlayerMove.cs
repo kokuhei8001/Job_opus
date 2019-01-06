@@ -47,7 +47,7 @@ public class PlayerMove : MonoBehaviour
             //しゃがみ処理
         }
 
-        //リスポーンキー
+        //デバッグ用リスポーンキー
         if (Input.GetKey(KeyCode.Alpha1))
         {
             transform.position = new Vector3(0, 5, 10);
@@ -58,10 +58,15 @@ public class PlayerMove : MonoBehaviour
     {
         //方向を決める
         Vector3 dir = new Vector3();
+        //Transform myTransform = this.transform;
+        //Vector3 worldPos = myTransform.position;
+        //Vector3 localPos = myTransform.localPosition;
+
         switch (dirction)
         {
             case "forward":
                 dir = transform.forward;
+                //localPos.z += 0.5f;
                 break;
 
             case "back":
@@ -70,6 +75,7 @@ public class PlayerMove : MonoBehaviour
 
             case "right":
                 dir = transform.right;
+                //localPos.x += 0.5f;
                 break;
 
             case "left":
@@ -79,6 +85,7 @@ public class PlayerMove : MonoBehaviour
         if (MoovRay(dir))//Rayを飛ばして先が壁かどうか調べる
         {
             body.MovePosition(transform.position + (dir * Time.deltaTime) * speed);
+            //myTransform.localPosition = localPos;
         }
     }
     

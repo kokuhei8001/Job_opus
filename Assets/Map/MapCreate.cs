@@ -110,13 +110,25 @@ public class MapCreate : MonoBehaviour {
 
         for (int i = 0; i < roomCount; i++)
         {
-            int roomHeight = Random.Range(roomMinHeight, roomMaxHeight);    //高さ
-            int roomWidth  = Random.Range(roomMinWidth, roomMaxWidth);       //横幅
-            int roomPointX = Random.Range(2, MapWidth - roomMaxWidth - 2);  //部屋のｘ位置
-            int roomPointY = Random.Range(2, MapWidth - roomMaxWidth - 2);  //部屋のｙ位置
+            bool isRoad;
+            int roomHeight;
+            int roomWidth;
+            int roomPointX;
+            int roomPointY;
 
-            int roadStartPointX = Random.Range(roomPointX, roomPointX + roomWidth);  //部屋に通路を繋ぐ位置
-            int roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight);
+            int roadStartPointX;
+            int roadStartPointY;
+            
+            roomHeight = Random.Range(roomMinHeight, roomMaxHeight);    //高さ
+            roomWidth  = Random.Range(roomMinWidth, roomMaxWidth);      //横幅
+            roomPointX = Random.Range(2, MapWidth - roomMaxWidth - 2);  //部屋のｘ位置
+            roomPointY = Random.Range(2, MapWidth - roomMaxWidth - 2);  //部屋のｙ位置
+
+            roadStartPointX = Random.Range(roomPointX, roomPointX + roomWidth);  //部屋に通路を繋ぐ位置
+            roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight);
+
+            isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY); //部屋に通路を引くかどうか判断する
+            
 
             //部屋のデータ
             room[i] = new ROOM();
@@ -125,8 +137,6 @@ public class MapCreate : MonoBehaviour {
             room[i].Size = new Vector2Int(roomWidth, roomHeight);
             //room[i].RoadPos[0] = new Vector2Int(roadStartPointX, roadStartPointY);
             //ここまで
-
-            bool isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY); //部屋に通路を引くかどうか判断する
 
             if (isRoad == false)//他の部屋と重なっていなかったら通路を作る
             {
@@ -169,6 +179,8 @@ public class MapCreate : MonoBehaviour {
             isUnder = true;
         }
 
+        //通路を引くプログラム
+        //全部同じパターンだと単調になってしますから上から延ばすか横から延ばすかの2パターン用意する
         if (Random.Range(0, 2) == 0){
             while (roadStartPointX != meetPointX)
             {
@@ -251,25 +263,22 @@ public class MapCreate : MonoBehaviour {
     }
 
     //Enemyのポップ
+    //Enemyとゴール同じ部屋の出現させてもいいのか？
     private void EnemyPop()
     {
+        //ポップする部屋番号と位置座標
         int EnemyPopRoom;
-        if (Random.Range(0, 2) == 0)
-        {
-            if (PlayerPopRoom != 0)
-            {
-                EnemyPopRoom = Random.Range(0, PlayerPopRoom);
-            } else {
-                EnemyPopRoom = Random.Range(PlayerPopRoom, roomCount);
-            }
-        }
-        else
-        {
-            EnemyPopRoom = Random.Range(PlayerPopRoom, roomCount);
-        }
+        int PopPosX;
+        int PopPosY;
 
-        int PopPosX = Random.Range(room[EnemyPopRoom].Pos.x, room[EnemyPopRoom].Pos.x + room[EnemyPopRoom].Size.x);
-        int PopPosY = Random.Range(room[EnemyPopRoom].Pos.y, room[EnemyPopRoom].Pos.y + room[EnemyPopRoom].Size.y);
+        do
+        {
+            EnemyPopRoom = Random.Range(0, roomCount);
+            PopPosX = Random.Range(room[EnemyPopRoom].Pos.x, room[EnemyPopRoom].Pos.x + room[EnemyPopRoom].Size.x);
+            PopPosY = Random.Range(room[EnemyPopRoom].Pos.y, room[EnemyPopRoom].Pos.y + room[EnemyPopRoom].Size.y);
+        }
+        while (EnemyPopRoom == PlayerPopRoom);//プレイヤーと同じ部屋のポップしないようにする
+        
         Instantiate(Enemy, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
     }
     
@@ -277,24 +286,17 @@ public class MapCreate : MonoBehaviour {
     void GorlPop()
     {
         int GoalPopRoom;
-        if (Random.Range(0, 2) == 0)
-        {
-            if (PlayerPopRoom != 0)
-            {
-                GoalPopRoom = Random.Range(0, PlayerPopRoom);
-            }
-            else
-            {
-                GoalPopRoom = Random.Range(PlayerPopRoom, roomCount);
-            }
-        }
-        else
-        {
-            GoalPopRoom = Random.Range(PlayerPopRoom, roomCount);
-        }
+        int PopPosX;
+        int PopPosY;
 
-        int PopPosX = Random.Range(room[GoalPopRoom].Pos.x, room[GoalPopRoom].Pos.x + room[GoalPopRoom].Size.x);
-        int PopPosY = Random.Range(room[GoalPopRoom].Pos.y, room[GoalPopRoom].Pos.y + room[GoalPopRoom].Size.y);
+        do
+        {
+            GoalPopRoom = Random.Range(0, roomCount);
+            PopPosX = Random.Range(room[GoalPopRoom].Pos.x, room[GoalPopRoom].Pos.x + room[GoalPopRoom].Size.x);
+            PopPosY = Random.Range(room[GoalPopRoom].Pos.y, room[GoalPopRoom].Pos.y + room[GoalPopRoom].Size.y);
+        }
+        while (GoalPopRoom == PlayerPopRoom);
+
         Instantiate(Goal, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength),Quaternion.Euler(45,0,45)); //identityだと回転軸が０，０，０に戻されてしまう
     }
 
