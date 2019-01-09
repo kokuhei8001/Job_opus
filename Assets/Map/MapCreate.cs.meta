@@ -9,6 +9,8 @@ MonoImporter:
   - Goal: {fileID: 1731358414272358, guid: 520869e49e462f24b9232f751221cf59, type: 2}
   - WallObject: {fileID: 1288550656310186, guid: f85b41cdca3d3614eb7b0dcde50d2403,
       type: 2}
+  - DoorObject: {fileID: 1823320862523504, guid: e6ecf7183611e13499a0272a8433eff8,
+      type: 2}
   - GroundObject: {fileID: 1586012944703218, guid: 03686c51b81739148960396751231694,
       type: 2}
   executionOrder: 0

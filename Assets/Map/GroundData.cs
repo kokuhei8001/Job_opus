@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//全てのGroundObjectに付けるスクリプト
+//キャラクターがRayと飛ばしてこれにアクセスして現在の位置情報を取得する
+
 public class GroundData : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

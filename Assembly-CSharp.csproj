@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Enemy\enemy_script.cs" />
+    <Compile Include="Assets\Map\DoorScript.cs" />
     <Compile Include="Assets\Map\Goal.cs" />
     <Compile Include="Assets\Map\GroundData.cs" />
     <Compile Include="Assets\Map\MapCreate.cs" />
