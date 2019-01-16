@@ -66,6 +66,8 @@
     <Compile Include="Assets\Map\Goal.cs" />
     <Compile Include="Assets\Map\GroundData.cs" />
     <Compile Include="Assets\Map\MapCreate.cs" />
+    <Compile Include="Assets\Map\RoadData.cs" />
+    <Compile Include="Assets\Map\RoomData.cs" />
     <Compile Include="Assets\Player\PlayerMove.cs" />
     <None Include="Assets\JpbOpus作業リスト.txt" />
     <Reference Include="UnityEditor.StandardEvents">
