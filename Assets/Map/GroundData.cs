@@ -6,24 +6,21 @@ using UnityEngine;
 //キャラクターがRayと飛ばしてこれにアクセスして現在の位置情報を取得する
 
 public class GroundData : MonoBehaviour {
-
-    [SerializeField] MapCreate _script;
-    [SerializeField] MapData Status;
-    private MapData[,] _map;
-
-    //Mapの情報
-    int roomNum;
-    int PosX;    //位置座標
+    //基本情報
+    int PosX;
     int PosY;
-    int Width;   //部屋のサイズ
+    MapData Status;
+    
+    //Roomの情報
+    int roomNum;
+    int Width;   
     int Height;
+    int RoadCount = 0; //通路がつながっている数
+    Vector2Int[] RoadPos = new Vector2Int[10]; //通路の開始位置 //メモリがもったいない
 
-    int RoadCount; //通路がつながっている数
-    int[] RoadPosX;//部屋の座標位置
-    int[] RoadPosY;
-
-    private void Start()
-    {
-        //_map = _script.Map;
-    }
+    //Raodの情報
+    int StartRoomNum;
+    int EndRoomNum;
+    Vector2Int StartPos;
+    Vector2Int EndPos;
 }

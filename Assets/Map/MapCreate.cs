@@ -47,7 +47,7 @@ public class MapCreate : MonoBehaviour {
     private int MapWidth = 50;
     private int MapHeight = 50;
 
-    private int roomCount;          //部屋の数 (10,15)
+    protected int roomCount;          //部屋の数 (10,15)
     private int RoomCountMin = 10; 
     private int RoomCountMax = 15;
 
@@ -80,8 +80,8 @@ public class MapCreate : MonoBehaviour {
         {
             EnemyPop();
         }
-        //GorlPop();
-        MakeGorl();
+        GorlPop();
+        //MakeGorl();
     }
     //Mapデータのリセット
     private void ResetMapData()
