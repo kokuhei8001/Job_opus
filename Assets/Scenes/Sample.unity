@@ -256,6 +256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1770424869}
+  - component: {fileID: 1770424870}
   - component: {fileID: 1770424868}
   m_Layer: 0
   m_Name: GameManeger
@@ -275,11 +276,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a610a9bda8af7e445aafb41e223714cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Manager: {fileID: 1770424870}
   Player: {fileID: 1550180044821870, guid: 86f878225f8b83b4f819b9c83b5075d4, type: 2}
   Enemy: {fileID: 1856012496675174, guid: 73be9b517f74db04bbea56a5bbac1bc5, type: 2}
   Goal: {fileID: 1731358414272358, guid: 520869e49e462f24b9232f751221cf59, type: 2}
   WallObject: {fileID: 1288550656310186, guid: f85b41cdca3d3614eb7b0dcde50d2403, type: 2}
-  DoorObject: {fileID: 0}
+  DoorObject: {fileID: 1823320862523504, guid: e6ecf7183611e13499a0272a8433eff8, type: 2}
   GroundObject: {fileID: 1586012944703218, guid: 03686c51b81739148960396751231694,
     type: 2}
   CrackLength: 1
@@ -297,3 +299,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1770424870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1770424867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc4dea1b672fef47bff1e2e2f66fd7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
