@@ -7,20 +7,7 @@ using UnityEngine;
 
 public class GroundData : MonoBehaviour {
     //基本情報
-    int PosX;
-    int PosY;
-    MapData Status;
-    
-    //Roomの情報
-    int roomNum;
-    int Width;   
-    int Height;
-    int RoadCount = 0; //通路がつながっている数
-    Vector2Int[] RoadPos = new Vector2Int[10]; //通路の開始位置 //メモリがもったいない
-
-    //Raodの情報
-    int StartRoomNum;
-    int EndRoomNum;
-    Vector2Int StartPos;
-    Vector2Int EndPos;
+    [SerializeField] public int PosX;
+    [SerializeField] public int PosY;
+    [SerializeField] public MapStatus Status = MapStatus.Ground;
 }

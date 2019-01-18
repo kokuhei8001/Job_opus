@@ -8,7 +8,7 @@ public enum MapStatus
     Wall,
     Road,
     Door,
-    Grond
+    Ground
 }
 
 public class ROOM
@@ -87,7 +87,7 @@ public class MapCreate : MonoBehaviour
     //Mapデータのリセット
     private void ResetMapData()
     {
-        //GameManager
+        //GameManager------------------------------------------------------------------------------------------------------------------------
         Manager.Map = new MapData[MapHeight, MapWidth];
         Manager.roomData = new RoomData[MapHeight, MapWidth];
         Manager.roadData = new RoadData[MapHeight, MapWidth];
@@ -97,9 +97,12 @@ public class MapCreate : MonoBehaviour
             {
                 Manager.Map[i, k] = new MapData();
                 Manager.Map[i, k].Status = MapStatus.Wall;
+
+                Manager.roomData[i, k] = new RoomData();
+                Manager.roadData[i, k] = new RoadData();
             }
         }
-        //MapCreate
+        //MapCreate------------------------------------------------------------------------------------------------------------------------
         Map = new MapStatus[MapHeight, MapWidth];
         for (int i = 0; i < MapHeight; i++)
         {
@@ -155,7 +158,7 @@ public class MapCreate : MonoBehaviour
             isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY); //部屋に通路を引くかどうか判断する
 
             //部屋のデータ
-            //GameManager
+            //GameManager------------------------------------------------------------------------------------------------------------------------
             for (int a = roomPointY; a < roomPointY + roomHeight; a++)
             {
                 for (int b = roomPointX; b < roomPointX + roomWidth; b++)
@@ -167,7 +170,7 @@ public class MapCreate : MonoBehaviour
                     //Manager.roomData[a, b].Width = roomWidth;
                 }
             }
-            //MapCreate
+            //MapCreate------------------------------------------------------------------------------------------------------------------------
             room[i] = new ROOM();
             room[i].Room_num = i;
             room[i].Pos = new Vector2Int(roomPointX, roomPointY);
@@ -372,7 +375,7 @@ public class MapCreate : MonoBehaviour
         if (dis == "X") { if (PointX == meetPoint) return false; }
         if (dis == "Y") { if (PointY == meetPoint) return false; }
         
-        Debug.Log("X:" + PointX + " Y:" + PointY + " END:" + meetPoint + " room: " + IsRoom);
+        //Debug.Log("X:" + PointX + " Y:" + PointY + " END:" + meetPoint + " room: " + IsRoom);
         if (Map[PointY, PointX] == MapStatus.Wall)
         {
             IsRoom = true;
@@ -418,14 +421,18 @@ public class MapCreate : MonoBehaviour
         {
             for (int k = 0; k < MapWidth; k++)
             {
-                if (Parent != null)
+                if (Parent != null) //親があったら直下に作る
                 {
                     if (Map[i, k] == MapStatus.Wall)
                     {
                         Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
                         Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
                     }
-                    Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
+                    GameObject _wallTmp = Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
+                    GroundData G = _wallTmp.GetComponent<GroundData>();
+                    G.PosX = k;
+                    G.PosY = i;
+                    //G.Status = MapStatus.Room;
                 }
                 else
                 {
