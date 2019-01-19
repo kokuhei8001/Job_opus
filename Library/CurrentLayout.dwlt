@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 681, y: 342}
   m_MaxSize: {x: 12006, y: 8042}
   vertical: 0
-  controlID: 95
+  controlID: 33
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 342}
   m_MaxSize: {x: 8004, y: 8042}
   vertical: 1
-  controlID: 96
+  controlID: 107
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 221}
   m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 97
+  controlID: 108
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -354,19 +354,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Map/ObjectPrefab
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Map/ObjectPrefab
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: "D:\\Vantan \u6388\u696D\u7528\\unity\u5236\u4F5C\\Job_opus"
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 4}
-    m_SelectedIDs: 7e2c0000
-    m_LastClickedID: 11390
+    m_SelectedIDs: 002a0000
+    m_LastClickedID: 10752
     m_ExpandedIDs: 00000000002a0000382a0000582b0000722b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -420,8 +420,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 5876fbff
-    m_LastClickedInstanceID: -297384
+    m_SelectedInstanceIDs: 502c0000
+    m_LastClickedInstanceID: 11344
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000000000002e3000009c290000
     m_RenameOverlay:
@@ -511,9 +511,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs: 502c0000
     m_LastClickedID: 0
-    m_ExpandedIDs: 3a7ffaffb49efbffd8c3fcffe4fbffff00000000
+    m_ExpandedIDs: e4fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -568,9 +568,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 10.547358, y: 6.3767643, z: 7.455862}
+    m_Target: {x: 16.224003, y: 12.0441065, z: 11.589089}
     speed: 2
-    m_Value: {x: 10.547358, y: 6.3767643, z: 7.455862}
+    m_Value: {x: 16.224003, y: 12.0441065, z: 11.589089}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -598,13 +598,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.22965875, y: -0.17867057, z: 0.042933475, w: -0.955767}
+    m_Target: {x: -0.45677403, y: -0.2176044, z: 0.11629733, w: -0.8546817}
     speed: 2
-    m_Value: {x: -0.22965875, y: -0.17867057, z: 0.042933475, w: -0.955767}
+    m_Value: {x: -0.45677403, y: -0.21760438, z: 0.11629733, w: -0.8546817}
   m_Size:
-    m_Target: 3.5275688
+    m_Target: 6.0475354
     speed: 2
-    m_Value: 3.5275688
+    m_Value: 6.0475354
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -643,7 +643,7 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_MaximizeOnPlay: 0
   m_Gizmos: 1
-  m_Stats: 0
+  m_Stats: 1
   m_SelectedSizes: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_TargetDisplay: 0
   m_ZoomArea:

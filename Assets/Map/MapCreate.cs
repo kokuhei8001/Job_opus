@@ -21,13 +21,6 @@ public class ROOM
 
 public class MapCreate : MonoBehaviour
 {
-
-    //Intからenumへ
-    public static TEnum ConvertToEnum<TEnum>(int number)
-    {
-        return (TEnum)System.Enum.ToObject(typeof(TEnum), number);
-    }
-
     [SerializeField] private GameManager Manager = null;
     [SerializeField] private GameObject Player = null;      //プレイヤーキャラクター本体
     [SerializeField] private GameObject Enemy = null;       //エネミーキャラクター本体
@@ -213,7 +206,7 @@ public class MapCreate : MonoBehaviour
             for (int k = 0; k < roomWidth; k++)
             {
                 if (Map[roomPointY + i, roomPointX + k] == MapStatus.Room || //他の部屋に重なっている
-                    Map[roomPointY + i, roomPointX + k] == MapStatus.Road) //または道にまたがっていたら道を新たには作らない
+                    Map[roomPointY + i, roomPointX + k] == MapStatus.Road) 　//または道にまたがっていたら道を新たには作らない
                 {
                     Map[roomPointY + i, roomPointX + k] = MapStatus.Room;
                     isRoad = true;
@@ -395,7 +388,6 @@ public class MapCreate : MonoBehaviour
         else { return true; }
     }
 
-
     //部屋に当たったらwhileを抜ける関数
     //void CheckRoom(int PointY, int PointX,int meetPoint,string dis, bool IsRoom, bool IsContinue)
     //{
@@ -496,7 +488,6 @@ public class MapCreate : MonoBehaviour
     }
 
     //ゴールを新たに作る
-
     void MakeGorl()
     {
         ////部屋の大きさは固定vecter2(3,3)

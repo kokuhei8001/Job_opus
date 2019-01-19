@@ -9,7 +9,7 @@ public class MapData
     public MapStatus Status;
 }
 
-public class RoomData
+public class RoomData : MapData
 {
     //Roomの情報
     public int roomNum;
@@ -18,7 +18,8 @@ public class RoomData
     public int RoadCount = 0; //通路がつながっている数
     public Vector2Int[] RoadPos = new Vector2Int[10]; //通路の開始位置 //メモリがもったいない
 }
-public class RoadData
+
+public class RoadData : MapData
 {   
     //Raodの情報
     int StartRoomNum;
@@ -26,9 +27,6 @@ public class RoadData
     Vector2Int StartPos;
     Vector2Int EndPos;
 }
-
-
-
 
 public class GameManager : MonoBehaviour {
 

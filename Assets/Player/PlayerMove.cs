@@ -125,7 +125,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 under = new Vector3(0, -90, 0);
         Ray ray = new Ray(transform.position, under);
         RaycastHit hit;
-        float distance = 0.75f;
+        float distance = 1.0f;
         Debug.DrawRay(transform.position, under * distance, Color.blue);
 
         if (Physics.Raycast(ray, out hit, distance))
@@ -141,3 +141,4 @@ public class PlayerMove : MonoBehaviour
     }
 
 }
+
