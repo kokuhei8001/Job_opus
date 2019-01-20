@@ -55,6 +55,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Vector2Int aaa = GetNowPos();
+            Debug.Log(" PosX : " + aaa.x + " PosY: " + aaa.y);
         }
     }
 
@@ -133,7 +134,6 @@ public class PlayerMove : MonoBehaviour
             GroundData answer = hit.collider.GetComponent<GroundData>();
             if (answer != null)
             {
-                Debug.Log(" PosX : " + answer.PosX + " PosY: " + answer.PosY);
                 return new Vector2Int(answer.PosX, answer.PosY);
             }
         }

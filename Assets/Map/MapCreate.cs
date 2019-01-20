@@ -253,8 +253,8 @@ public class MapCreate : MonoBehaviour
 
             IsRoom = false;
             IsContinue = true;
-            //while (roadStartPointX != meetPointX)
-            while (IsContinue)
+            while (roadStartPointX != meetPointX)
+            //while (IsContinue)
             {
                 Map[roadStartPointY, roadStartPointX] = MapStatus.Road;
                 if (isRight == true)
@@ -267,22 +267,23 @@ public class MapCreate : MonoBehaviour
                 }
 
                 //部屋に当たった時点で終了させる
-                IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", IsRoom);
+                //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", IsRoom);
                 //CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", IsRoom,IsContinue);
 
-                //if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
-                //{ IsRoom = true; }
-                //if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room)
-                //{
-                //    if (IsRoom)
-                //    {
-                //        break;
-                //    }
-                //}
+                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
+                { IsRoom = true; }
+                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room)
+                {
+                    if (IsRoom)
+                    {
+                        break;
+                    }
+                }
             }
             IsRoom = false;
             IsContinue = true;
-            while (IsContinue)
+            while(roadStartPointY != meetPointY)
+            //while (IsContinue)
             {
                 Map[roadStartPointY, roadStartPointX] = MapStatus.Road;
                 if (isUnder == true)
@@ -294,23 +295,24 @@ public class MapCreate : MonoBehaviour
                     roadStartPointY--;
                 }
                 //部屋の当たった時点で終了させる
-                IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointY, "Y", IsRoom);
-                //if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
-                //{ IsRoom = true; }
-                //if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room)
-                //{
-                //    if (IsRoom)
-                //    {
-                //        break;
-                //    }
-                //}
+                //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointY, "Y", IsRoom);
+                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
+                { IsRoom = true; }
+                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room)
+                {
+                    if (IsRoom)
+                    {
+                        break;
+                    }
+                }
             }
         }
         else
         {
             IsRoom = false;
             IsContinue = true;
-            while (IsContinue)
+            while (roadStartPointY != meetPointY)
+            //while (IsContinue)
             {
                 Map[roadStartPointY, roadStartPointX] = MapStatus.Road;
                 if (isUnder == true)
@@ -322,21 +324,22 @@ public class MapCreate : MonoBehaviour
                     roadStartPointY--;
                 }
                 //部屋の当たった時点で終了させる               
-                IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointY, "Y", IsRoom);
+                //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointY, "Y", IsRoom);
 
-                //if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
-                //{ IsRoom = true; }
-                //if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room)
-                //{
-                //    if (IsRoom)
-                //    {
-                //        break;
-                //    }
-                //}
+                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
+                { IsRoom = true; }
+                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room)
+                {
+                    if (IsRoom)
+                    {
+                        break;
+                    }
+                }
             }
             IsRoom = false;
             IsContinue = true;
-            while (IsContinue)
+            while (roadStartPointX != meetPointX)
+            //while (IsContinue)
             {
 
                 Map[roadStartPointY, roadStartPointX] = MapStatus.Road;
@@ -349,44 +352,45 @@ public class MapCreate : MonoBehaviour
                     roadStartPointX++;
                 }
                 //部屋の当たった時点で終了させる
-                IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", IsRoom);
-                //if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
-                //{ IsRoom = true; }
-                //if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room)
-                //{
-                //    if (IsRoom)
-                //    {
-                //        break;
-                //    }
-                //}
+                //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", IsRoom);
+                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
+                { IsRoom = true; }
+                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room)
+                {
+                    if (IsRoom)
+                    {
+                        break;
+                    }
+                }
             }
         }//if()else
     }//void CreatRoadData
 
-    bool CheckRoom(int PointY, int PointX, int meetPoint, string dis, bool IsRoom)
-    {
-        if (dis == "X") { if (PointX == meetPoint) return false; }
-        if (dis == "Y") { if (PointY == meetPoint) return false; }
+    //通路を作る際にwhileを抜ける関数
+    //bool CheckRoom(int PointY, int PointX, int meetPoint, string dis, bool IsRoom)
+    //{
+    //    if (dis == "X") { if (PointX == meetPoint) return false; }
+    //    if (dis == "Y") { if (PointY == meetPoint) return false; }
         
-        //Debug.Log("X:" + PointX + " Y:" + PointY + " END:" + meetPoint + " room: " + IsRoom);
-        if (Map[PointY, PointX] == MapStatus.Wall)
-        {
-            IsRoom = true;
-            return true;
-        }
-        else if (Map[PointY, PointX] == MapStatus.Room)
-        {
-            if (IsRoom)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-        else { return true; }
-    }
+    //    //Debug.Log("X:" + PointX + " Y:" + PointY + " END:" + meetPoint + " room: " + IsRoom);
+    //    if (Map[PointY, PointX] == MapStatus.Wall)
+    //    {
+    //        IsRoom = true;
+    //        return true;
+    //    }
+    //    else if (Map[PointY, PointX] == MapStatus.Room)
+    //    {
+    //        if (IsRoom)
+    //        {
+    //            return false;
+    //        }
+    //        else
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    else { return true; }
+    //}
 
     //部屋に当たったらwhileを抜ける関数
     //void CheckRoom(int PointY, int PointX,int meetPoint,string dis, bool IsRoom, bool IsContinue)
