@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 136002305393565600}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,7 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb3b89b8836c664d8c79e02b2685f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attack: {fileID: 0}
   speed: 20
 --- !u!136 &136002305393565600
 CapsuleCollider:
