@@ -76,12 +76,12 @@ public class enemy_script : MonoBehaviour {
     //プレイヤーを追跡している状態
     private void RunToPlayer()
     {
-        Debug.Log("RunToPlayer");
+       // Debug.Log("RunToPlayer");
         myself_pos = transform.position;
         Vector3 target_pos = new Vector3(player_pos.x, myself_pos.y, player_pos.z);
-        Debug.Log("LookAtまえ！");
+        //Debug.Log("LookAtまえ！");
         transform.LookAt(target_pos);//プレイヤーの方を向く
-        Debug.Log("LookAtあと！");
+        //Debug.Log("LookAtあと！");
         rb.MovePosition(myself_pos + transform.forward * Time.deltaTime);//前方に進む
     }
 }
