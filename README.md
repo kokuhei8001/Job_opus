@@ -5,8 +5,9 @@
 
 ## 開発環境
   Unity 2018.2.18f1<br>
-  Visual Studio Community 2017 : ver.15.8.6<br>
-                               : ver.15.9.5<br>
+  Visual Studio Community 2017<br>
+  ver.15.8.6<br>
+  ver.15.9.5<br>
   
 
 ## 動作環境・推奨環境
