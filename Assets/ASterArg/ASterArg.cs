@@ -11,7 +11,6 @@ public enum ASterStatus
 [System.Serializable]
 public class ASterData
 {
-
     public Vector2Int Pos;
     public int Cost = 0;
     public int GessCost = 0;
@@ -28,34 +27,47 @@ public class ASterArg : MonoBehaviour {
     private MapStatus[,] MapData;
     private ASterData[,] MapASterData;
     private List<ASterData> ASterOpenList = new List<ASterData>(); //Open状態になっている場所を格納する場所
-    private List<Vector2Int> RoutData = new List<Vector2Int>(); //目的地までの道順
-    private int ASter_cost; //A*を走らせた回数
+    public List<Vector2Int> RoutData = new List<Vector2Int>(); //目的地までの道順
+    private int ASterCount; //A*を走らせた回数
 
-    Vector2Int StartPos = new Vector2Int(0,0);
-    Vector2Int GorlPos = new Vector2Int(0, 0);
+    private Vector2Int StartPos = new Vector2Int(0,0);
+    private Vector2Int GorlPos = new Vector2Int(0, 0);
 
     //Asterループ管理
     private bool Surch = true;
     
-    private void Start()
+    public void Start()
     {
-        MapData = _mapCreate.Map; //Mapの情報を持ってくる
-
-        //MapASterDataの初期化
+        //mapDataの初期化
+        MapData = new MapStatus[_mapCreate.MapWidth, _mapCreate.MapHeight]; //Mapの情報を持ってくる
         MapASterData = new ASterData[_mapCreate.MapWidth, _mapCreate.MapHeight];
-        for (int x = 0; x < _mapCreate.MapWidth; x++)
-        {
+        for (int x = 0; x < _mapCreate.MapWidth; x++){
             for (int y = 0; y < _mapCreate.MapHeight; y++)
             {
+                MapData[x,y] = _mapCreate.Map[x,y];
+
                 MapASterData[x, y] = new ASterData();
                 MapASterData[x, y].Pos = new Vector2Int(x, y);
             }
         }
 
-        ASter(StartPos, GorlPos);
+
+        StartPos = _mapCreate.PlayerpopPos;
+        GorlPos = _mapCreate.GorlPopPos;
+        Debug.Log("Start:" + StartPos);
+        Debug.Log("gorl :" + GorlPos);
+
+        //Aster
+        ASter(StartPos,GorlPos);
         while (Surch)
         {
             ASter(ASterOpenList[0].Pos, GorlPos);
+        }
+
+        Debug.Log("A*プログラムが走った回数:" + ASterCount);
+        for(int i = RoutData.Count - 1;i >= 0;i--)
+        {
+            Debug.Log(i + "歩目" + RoutData[i]);
         }
     }
 
@@ -86,12 +98,12 @@ public class ASterArg : MonoBehaviour {
             {
                 continue;
             }
-
+            
             //目的地に到達したら
             if (new Vector2Int(x, y) == Gorl)
             {
                 //目的地の親を現在地にする
-                MapASterData[x, y].Parent = new Vector2Int(x, y);
+                MapASterData[x, y].Parent = Pos;
 
                 //親をたどり開始位置まで戻る(Listに入れる)
                 Vector2Int tempPos = new Vector2Int(x, y);
@@ -118,7 +130,9 @@ public class ASterArg : MonoBehaviour {
             {
                 if (MapASterData[x, y].OpenData == ASterStatus.Open)
                 {
-                    MapASterData[x, y].Parent = Pos; //親に現在地を入れる
+                    //目的地の親を現在地にする
+                    MapASterData[x, y].Parent = Pos;
+
                     //GessCostを取得する
                     MapASterData[x, y].Cost = MapASterData[Pos.x,Pos.y].Cost + 1;
                     MapASterData[x, y].GessCost = CalculationCost(new Vector2Int(x, y),Gorl);
@@ -139,7 +153,7 @@ public class ASterArg : MonoBehaviour {
         }
 
         ListSort();
-        ASter_cost++;
+        ASterCount++;
         
     }//ASterArg
     

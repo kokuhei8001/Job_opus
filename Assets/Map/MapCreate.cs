@@ -30,8 +30,7 @@ public class MapCreate : MonoBehaviour
     [SerializeField] private GameObject GroundObject = null;//地面のオブジェクト
     [SerializeField] private float CrackLength = 1.0f;      //オブジェクト同士の隙間距離
     [SerializeField] private int EnemySize = 0;             //エネミーの数
-
-    private GameObject Parent;//大量のオブジェが生産されるのでこの階層下で生成させる
+    
 
     //Mapのデータ
     public MapStatus[,] Map;
@@ -56,25 +55,25 @@ public class MapCreate : MonoBehaviour
     private int[] meetPointsX;
     private int[] meetPointsY;
 
-    //Playerがポップする部屋の番号s
+    //Playerがポップする部屋の番号
     private int PlayerPopRoom = 0;
+    public Vector2Int PlayerpopPos = new Vector2Int(0, 0);
+    public Vector2Int GorlPopPos = new Vector2Int(0, 0);
 
-    void Start()
+    private void Awake()
     {
-        //たくさんクローンオブジェクトが生成されてヒエラルキーが見にくくなるので親オブジェクトを作っておく
-        Parent = new GameObject("Map");
-        Parent.transform.position = new Vector3(0, 0, 0);
-
         //ダンジョンを生成
         ResetMapData();
         CreateSpaceData();
-        CreateDangeon();
+
         PlayerPop();
         for (int i = 0; i < EnemySize; i++)
         {
             EnemyPop();
         }
         GorlPop();
+        CreateDangeon();
+
         //MakeGorl();
     }
     //Mapデータのリセット
@@ -120,7 +119,7 @@ public class MapCreate : MonoBehaviour
             meetPointsX[i] = Random.Range(MapWidth / 4, MapWidth * 3 / 4);
             meetPointsY[i] = Random.Range(MapHeight / 4, MapHeight * 3 / 4);
 
-            Map[meetPointsY[i], meetPointsX[i]] = MapStatus.Road;
+            Map[meetPointsX[i], meetPointsY[i]] = MapStatus.Road;
         }
 
         //部屋を作って行く
@@ -187,7 +186,7 @@ public class MapCreate : MonoBehaviour
                 //{
                 //    continue;
                 //}
-                if (Map[roomPointY + i, roomPointX + k] == MapStatus.Room)
+                if (Map[roomPointX + i, roomPointY + k] == MapStatus.Room)
                 {
                     return true;
                 }
@@ -204,15 +203,15 @@ public class MapCreate : MonoBehaviour
         {
             for (int k = 0; k < roomWidth; k++)
             {
-                if (Map[roomPointY + i, roomPointX + k] == MapStatus.Room || //他の部屋に重なっている
-                    Map[roomPointY + i, roomPointX + k] == MapStatus.Road) 　//または道にまたがっていたら道を新たには作らない
+                if (Map[roomPointX + k, roomPointY + i] == MapStatus.Room || //他の部屋に重なっている
+                    Map[roomPointX + k, roomPointY + i] == MapStatus.Road) 　//または道にまたがっていたら道を新たには作らない
                 {
-                    Map[roomPointY + i, roomPointX + k] = MapStatus.Room;
+                    Map[roomPointX + k, roomPointY + i] = MapStatus.Room;
                     isRoad = true;
                 }
                 else
                 {
-                    Map[roomPointY + i, roomPointX + k] = MapStatus.Room;   //部屋のステータスを代入する
+                    Map[roomPointX + k, roomPointY + i] = MapStatus.Room;   //部屋のステータスを代入する
                 }
             }
         }
@@ -255,7 +254,7 @@ public class MapCreate : MonoBehaviour
             while (roadStartPointX != meetPointX)
             //while (IsContinue)
             {
-                Map[roadStartPointY, roadStartPointX] = MapStatus.Road;
+                Map[roadStartPointX, roadStartPointY] = MapStatus.Road;
                 if (isRight == true)
                 {
                     roadStartPointX--;
@@ -269,10 +268,10 @@ public class MapCreate : MonoBehaviour
                 //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", InRoom);
                 //CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", InRoom,IsContinue);
 
-                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
+                if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
                 { InRoom = true; }
-                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room ||
-                    Map[roadStartPointY, roadStartPointX] == MapStatus.Road)
+                if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
+                    Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
                 {
                     if (InRoom)
                     {
@@ -285,7 +284,7 @@ public class MapCreate : MonoBehaviour
             while(roadStartPointY != meetPointY)
             //while (IsContinue)
             {
-                Map[roadStartPointY, roadStartPointX] = MapStatus.Road;
+                Map[roadStartPointX, roadStartPointY] = MapStatus.Road;
                 if (isUnder == true)
                 {
                     roadStartPointY++;
@@ -296,10 +295,10 @@ public class MapCreate : MonoBehaviour
                 }
                 //部屋の当たった時点で終了させる
                 //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointY, "Y", InRoom);
-                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
-                { InRoom = true; }
-                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room ||
-                    Map[roadStartPointY, roadStartPointX] == MapStatus.Road)
+                if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
+                { InRoom = true; }                     
+                if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
+                    Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
                 {
                     if (InRoom)
                     {
@@ -315,7 +314,7 @@ public class MapCreate : MonoBehaviour
             while (roadStartPointY != meetPointY)
             //while (IsContinue)
             {
-                Map[roadStartPointY, roadStartPointX] = MapStatus.Road;
+                Map[roadStartPointX, roadStartPointY] = MapStatus.Road;
                 if (isUnder == true)
                 {
                     roadStartPointY++;
@@ -327,10 +326,10 @@ public class MapCreate : MonoBehaviour
                 //部屋の当たった時点で終了させる               
                 //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointY, "Y", InRoom);
 
-                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
-                { InRoom = true; }
-                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room ||
-                    Map[roadStartPointY, roadStartPointX] == MapStatus.Road)
+                if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
+                { InRoom = true; }                     
+                if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
+                    Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
                 {
                     if (InRoom)
                     {
@@ -344,7 +343,7 @@ public class MapCreate : MonoBehaviour
             //while (IsContinue)
             {
 
-                Map[roadStartPointY, roadStartPointX] = MapStatus.Road;
+                Map[roadStartPointX, roadStartPointY] = MapStatus.Road;
                 if (isRight == true)
                 {
                     roadStartPointX--;
@@ -355,10 +354,10 @@ public class MapCreate : MonoBehaviour
                 }
                 //部屋の当たった時点で終了させる
                 //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", InRoom);
-                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Wall)
-                { InRoom = true; }
-                if (Map[roadStartPointY, roadStartPointX] == MapStatus.Room ||
-                    Map[roadStartPointY, roadStartPointX] == MapStatus.Road)
+                if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
+                { InRoom = true; }                     
+                if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
+                    Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
                 {
                     if (InRoom)
                     {
@@ -416,37 +415,26 @@ public class MapCreate : MonoBehaviour
     //ダンジョンをオブジェクトに起こして生成する
     private void CreateDangeon()
     {
+        //たくさんクローンオブジェクトが生成されてヒエラルキーが見にくくなるので親オブジェクトを作っておく
+        GameObject Parent = new GameObject("Map");
+        Parent.transform.position = new Vector3(0, 0, 0);
         for (int i = 0; i < MapHeight; i++)
         {
             for (int k = 0; k < MapWidth; k++)
             {
-                if (Parent != null) //親があったら直下に作る
+                if (Map[k,i] == MapStatus.Wall)
                 {
-                    if (Map[i, k] == MapStatus.Wall)
-                    {
-                        Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
-                        Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
-                    }
-                    GameObject _wallTmp = Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
-                    GroundData G = _wallTmp.GetComponent<GroundData>();
-                    if (G != null)
-                    {
-                        G.PosX = k;
-                        G.PosY = i;
-                        //G.Status = MapStatus.Room;
-                    }
+                    Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
+                    Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
                 }
-                else
+                GameObject _Ground = Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
+                _Ground.name = "Ground[" + i + "," + k + "]";
+                GroundData G = _Ground.GetComponent<GroundData>();
+                if (G != null)
                 {
-                    //たくさんクローンオブジェクトが生成されてヒエラルキーが見にくくなるので親オブジェクトを作っておく
-                    Parent = new GameObject("Map");
-                    Parent.transform.position = new Vector3(0, 0, 0);
-                    if (Map[i, k] == MapStatus.Wall)
-                    {
-                        Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
-                        Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
-                    }
-                    Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
+                    G.PosX = k;
+                    G.PosY = i;
+                    G.Status = MapStatus.Room;
                 }
             }
         }
@@ -459,6 +447,9 @@ public class MapCreate : MonoBehaviour
         int PopPosX = Random.Range(room[PlayerPopRoom].Pos.x, room[PlayerPopRoom].Pos.x + room[PlayerPopRoom].Size.x);
         int PopPosY = Random.Range(room[PlayerPopRoom].Pos.y, room[PlayerPopRoom].Pos.y + room[PlayerPopRoom].Size.y);
         Instantiate(Player, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
+
+        PlayerpopPos = new Vector2Int(PopPosX, PopPosY);
+
     }
 
     //Enemyのポップ
@@ -495,6 +486,8 @@ public class MapCreate : MonoBehaviour
         int PopPosY = (room[GoalPopRoom].Pos.y + room[GoalPopRoom].Pos.y + room[GoalPopRoom].Size.y) / 2;
 
         Instantiate(Goal, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.Euler(45, 0, 45)); //identityだと回転軸が０，０，０に戻されてしまう
+
+        GorlPopPos = new Vector2Int(PopPosX, PopPosY);
     }
 
     //ゴールを新たに作る

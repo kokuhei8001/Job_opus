@@ -33,8 +33,5 @@ public class GameManager : MonoBehaviour {
     public MapData[,] Map;
     public RoomData[,] roomData;
     public RoadData[,] roadData;
-
-    private void Start()
-    {
-    }
+    
 }

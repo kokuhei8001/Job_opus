@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\ASterArg\ASterArg.cs" />
     <Compile Include="Assets\ASterArg\ASterDataView.cs" />
+    <Compile Include="Assets\ASterArg\ASterTestScript.cs" />
     <Compile Include="Assets\Enemy\enemy_script.cs" />
     <Compile Include="Assets\Map\DoorScript.cs" />
     <Compile Include="Assets\Map\GameManager.cs" />
