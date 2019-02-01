@@ -34,12 +34,12 @@ public class MapCreate : MonoBehaviour
     private GameObject Parent;//大量のオブジェが生産されるのでこの階層下で生成させる
 
     //Mapのデータ
-    private MapStatus[,] Map;
+    public MapStatus[,] Map;
     private ROOM[] room;
 
     //Mapの大きさ
-    private int MapWidth = 50;
-    private int MapHeight = 50;
+    public int MapWidth = 50;
+    public int MapHeight = 50;
 
     private int roomCount;          //部屋の数 (10,15)
     private int RoomCountMin = 10;
