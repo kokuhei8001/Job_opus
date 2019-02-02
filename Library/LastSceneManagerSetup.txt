@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ASterArg.unity
+- path: Assets/Enemy/EnemySurchTest.unity
   isLoaded: 1
   isActive: 1

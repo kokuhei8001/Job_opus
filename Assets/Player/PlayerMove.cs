@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    private GameManager _gameManager;
+
     [SerializeField]
     private float speed = 20.0f;
 
     Rigidbody body;
-    
+
+    private void Start()
+    {
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
     void Update()
     {
         body = GetComponent<Rigidbody>();
@@ -54,9 +61,20 @@ public class PlayerMove : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Vector2Int aaa = GetNowPos();
+            Vector2Int aaa = _gameManager.GetPosData(this.gameObject);
             Debug.Log(" PosX : " + aaa.x + " PosY: " + aaa.y);
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            List<Vector2Int> ToGorl = new List<Vector2Int>();
+            ToGorl = _gameManager.ASter(this.gameObject,_gameManager.GorlPos);
+            for (int i = 0; i < ToGorl.Count; i++)
+            {
+                Debug.Log(i + "歩目" + ToGorl[ToGorl.Count - 1 - i]);
+            }
+        }
+
     }
 
     void Moov(string dirction)
@@ -121,24 +139,24 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    Vector2Int GetNowPos()
-    {
-        Vector3 under = new Vector3(0, -90, 0);
-        Ray ray = new Ray(transform.position, under);
-        RaycastHit hit;
-        float distance = 1.0f;
-        Debug.DrawRay(transform.position, under * distance, Color.blue);
+    //Vector2Int GetNowPos()
+    //{
+    //    Vector3 under = new Vector3(0, -90, 0);
+    //    Ray ray = new Ray(transform.position, under);
+    //    RaycastHit hit;
+    //    float distance = 1.0f;
+    //    Debug.DrawRay(transform.position, under * distance, Color.blue);
 
-        if (Physics.Raycast(ray, out hit, distance))
-        {
-            GroundData answer = hit.collider.GetComponent<GroundData>();
-            if (answer != null)
-            {
-                return new Vector2Int(answer.PosX, answer.PosY);
-            }
-        }
-        return new Vector2Int();
-    }
+    //    if (Physics.Raycast(ray, out hit, distance))
+    //    {
+    //        GroundData answer = hit.collider.GetComponent<GroundData>();
+    //        if (answer != null)
+    //        {
+    //            return new Vector2Int(answer.PosX, answer.PosY);
+    //        }
+    //    }
+    //    return new Vector2Int();
+    //}
 
 }
 

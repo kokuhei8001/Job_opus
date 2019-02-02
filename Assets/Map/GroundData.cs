@@ -10,5 +10,4 @@ public class GroundData : MonoBehaviour {
     [SerializeField] public int PosX;
     [SerializeField] public int PosY;
     [SerializeField] public MapStatus Status = MapStatus.Ground;
-    [SerializeField] public bool rout = false;
 }

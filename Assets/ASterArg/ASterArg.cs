@@ -26,17 +26,17 @@ public class ASterArg : MonoBehaviour {
     [SerializeField] MapCreate _mapCreate; //Mapの情報が格納されているscript
     private MapStatus[,] MapData;
     private ASterData[,] MapASterData;
-    private List<ASterData> ASterOpenList = new List<ASterData>(); //Open状態になっている場所を格納する場所
-    public List<Vector2Int> RoutData = new List<Vector2Int>(); //目的地までの道順
+    private List<ASterData> ASterOpenList; //Open状態になっている場所を格納する場所
+    private List<Vector2Int> RoutData; //目的地までの道順
     private int ASterCount; //A*を走らせた回数
 
     private Vector2Int StartPos = new Vector2Int(0,0);
     private Vector2Int GorlPos = new Vector2Int(0, 0);
 
     //Asterループ管理
-    private bool Surch = true;
-    
-    public void Start()
+    private bool Surch;
+
+    public List<Vector2Int> ASterkit(Vector2Int _StartPos,Vector2Int _EndPos)
     {
         //mapDataの初期化
         MapData = new MapStatus[_mapCreate.MapWidth, _mapCreate.MapHeight]; //Mapの情報を持ってくる
@@ -50,12 +50,15 @@ public class ASterArg : MonoBehaviour {
                 MapASterData[x, y].Pos = new Vector2Int(x, y);
             }
         }
+        //その他データの初期化
+        StartPos = _StartPos;
+        GorlPos = _EndPos;
 
-
-        StartPos = _mapCreate.PlayerpopPos;
-        GorlPos = _mapCreate.GorlPopPos;
-        Debug.Log("Start:" + StartPos);
-        Debug.Log("gorl :" + GorlPos);
+        ASterCount = 0;
+        ASterOpenList = new List<ASterData>();
+        RoutData = new List<Vector2Int>();
+        Surch = true;
+        
 
         //Aster
         ASter(StartPos,GorlPos);
@@ -63,15 +66,10 @@ public class ASterArg : MonoBehaviour {
         {
             ASter(ASterOpenList[0].Pos, GorlPos);
         }
-
-        Debug.Log("A*プログラムが走った回数:" + ASterCount);
-        for(int i = RoutData.Count - 1;i >= 0;i--)
-        {
-            Debug.Log(i + "歩目" + RoutData[i]);
-        }
+        return RoutData;//逆から入れる？
     }
 
-    void ASter(Vector2Int Pos,Vector2Int Gorl)
+    private void ASter(Vector2Int Pos,Vector2Int Gorl)
     {
         //自分の場所を探索済みにする
         MapASterData[Pos.x, Pos.y].OpenData = ASterStatus.Close;
@@ -159,7 +157,7 @@ public class ASterArg : MonoBehaviour {
     
 
     //目的地までの推定コスト
-    int CalculationCost(Vector2Int Pos, Vector2Int End)
+    private int CalculationCost(Vector2Int Pos, Vector2Int End)
     {
         Vector2Int answer = new Vector2Int(0, 0);
 
@@ -178,7 +176,7 @@ public class ASterArg : MonoBehaviour {
     }
 
     //Listの中身をソートする
-    void ListSort()
+    private void ListSort()
     {
         ASterOpenList.Sort(
             (a, b) => a.TotalCost - b.TotalCost

@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class enemy_script : MonoBehaviour {
 
+    private EnemyController manager;
+
     private bool IsSearching = false; //追いかけているか
     private GameObject _player;//プレイヤーの情報
-    private Vector3 player_pos;       //プレイヤーの位置情報
+    private Vector3 player_pos; //プレイヤーの位置情報
     private Vector3 myself_pos; //自分の位置情報
     
     private Rigidbody rb;
 
     private void Start()
     {
+        manager = GetComponent<EnemyController>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -24,13 +27,8 @@ public class enemy_script : MonoBehaviour {
             if(SearchRay())
             {
                 RunToPlayer();
+                //manager.NowStatus = EnemyStatus.Hunt;
             }
-        }
-
-        //デバック
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            transform.position = new Vector3(5, 1, 7);
         }
     }
 
@@ -76,12 +74,10 @@ public class enemy_script : MonoBehaviour {
     //プレイヤーを追跡している状態
     private void RunToPlayer()
     {
-       // Debug.Log("RunToPlayer");
         myself_pos = transform.position;
         Vector3 target_pos = new Vector3(player_pos.x, myself_pos.y, player_pos.z);
-        //Debug.Log("LookAtまえ！");
+
         transform.LookAt(target_pos);//プレイヤーの方を向く
-        //Debug.Log("LookAtあと！");
         rb.MovePosition(myself_pos + transform.forward * Time.deltaTime);//前方に進む
     }
 }
