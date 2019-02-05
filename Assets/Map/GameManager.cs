@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
         Vector3 under = new Vector3(0, -90, 0);
         Ray ray = new Ray(myself.transform.position, under);
         RaycastHit hit;
-        float distance = 1.0f;
+        float distance = 2.0f;
         //Debug
         Debug.DrawRay(myself.transform.position, under * distance, Color.blue);
 

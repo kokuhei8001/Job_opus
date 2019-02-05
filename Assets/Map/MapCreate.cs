@@ -33,13 +33,13 @@ public class MapCreate : MonoBehaviour
 
     //Mapのデータ
     public MapStatus[,] Map;
-    private ROOM[] room;
+    public ROOM[] room;
 
     //Mapの大きさ
     public int MapWidth = 50;
     public int MapHeight = 50;
 
-    private int roomCount;          //部屋の数 (10,15)
+    public int roomCount;          //部屋の数 (10,15)
     private int RoomCountMin = 10;
     private int RoomCountMax = 15;
 
@@ -477,7 +477,9 @@ public class MapCreate : MonoBehaviour
         int PopPosX = Random.Range(room[EnemyPopRoom].Pos.x, room[EnemyPopRoom].Pos.x + room[EnemyPopRoom].Size.x);
         int PopPosY = Random.Range(room[EnemyPopRoom].Pos.y, room[EnemyPopRoom].Pos.y + room[EnemyPopRoom].Size.y);
 
-        Instantiate(Enemy, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
+        //Instantiate(Enemy, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
+        Instantiate(Enemy, new Vector3(PopPosX * CrackLength, 0, PopPosY * CrackLength), Quaternion.identity);
+
     }
 
     //ゴールの生成

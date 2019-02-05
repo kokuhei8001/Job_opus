@@ -188,15 +188,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4021280233795276, guid: 687c1ef15b7fc8e4a904a2592305bc4d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 24.39936
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4021280233795276, guid: 687c1ef15b7fc8e4a904a2592305bc4d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.3719381
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4021280233795276, guid: 687c1ef15b7fc8e4a904a2592305bc4d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 23.701244
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4021280233795276, guid: 687c1ef15b7fc8e4a904a2592305bc4d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -223,6 +223,12 @@ Prefab:
       propertyPath: EnemySize
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114617647392082056, guid: 687c1ef15b7fc8e4a904a2592305bc4d,
+        type: 2}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 1121743746631906, guid: 687b0a2e114cdfa4da8438abf8ac65f5,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 687c1ef15b7fc8e4a904a2592305bc4d, type: 2}
   m_IsPrefabAsset: 0
