@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerMotion : MonoBehaviour {
 
     private Animator anim;
-    private bool Ispush;
+    private bool IsMoov;
+    private bool IsRun;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        Ispush = false;
+        IsMoov = false;
+        IsRun = false;
     }
 
     private void Update()
@@ -18,37 +20,48 @@ public class PlayerMotion : MonoBehaviour {
         //Wを押したら歩く
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Ispush = true;
+            IsMoov = true;
             anim.SetBool("IsWalk", true);
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
-            Ispush = false;
+            IsMoov = false;
             anim.SetBool("IsWalk", false);
-        }
-        //Eを押したら走る
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Ispush = true;
-            anim.SetBool("IsRun", true);
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            Ispush = false;
             anim.SetBool("IsRun", false);
         }
-
-        if (!Ispush)
+        //Eを押したら走る
+        if (IsMoov)
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                anim.SetTrigger("IsTurnLeftTrigger");
+                IsRun = true;
+                anim.SetBool("IsRun", true);
+                anim.SetBool("IsWalk", false);
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                IsRun = false;
+                anim.SetBool("IsWalk", true);
+                anim.SetBool("IsRun", false);
+            }
+        }
+
+
+
+
+
+
+        //歩いていたり走っていなかったらその場で回る
+        if (!IsMoov)
+        {
+            if (Input.GetKey(KeyCode.D))
             {
                 anim.SetTrigger("IsTurnRightTrigger");
             }
+            if (Input.GetKey(KeyCode.A))
+            {
+                anim.SetTrigger("IsTurnLeftTrigger");
+            }
         }
-    
     }
 }
