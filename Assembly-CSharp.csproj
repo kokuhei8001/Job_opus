@@ -64,10 +64,10 @@
     <Compile Include="Assets\ASterArg\ASterArg.cs" />
     <Compile Include="Assets\ASterArg\ASterDataView.cs" />
     <Compile Include="Assets\ASterArg\ASterTestScript.cs" />
+    <Compile Include="Assets\CameraScript.cs" />
     <Compile Include="Assets\Enemy\enemy_script.cs" />
     <Compile Include="Assets\Enemy\EnemyAutoSurch.cs" />
     <Compile Include="Assets\Enemy\EnemyController.cs" />
-    <Compile Include="Assets\Enemy\EnemyToGorl.cs" />
     <Compile Include="Assets\Enemy\Locomotion Setup\Locomotion\Scripts\Locomotion.cs" />
     <Compile Include="Assets\Enemy\Locomotion Setup\Scripts\JoystickToEvents.cs" />
     <Compile Include="Assets\Enemy\Locomotion Setup\Scripts\LocomotionPlayer.cs" />
@@ -76,6 +76,7 @@
     <Compile Include="Assets\Map\Goal.cs" />
     <Compile Include="Assets\Map\GroundData.cs" />
     <Compile Include="Assets\Map\MapCreate.cs" />
+    <Compile Include="Assets\Player\PlayerMotion.cs" />
     <Compile Include="Assets\Player\PlayerMove.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />

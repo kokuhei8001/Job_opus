@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 1770424870}
   - component: {fileID: 1770424868}
   m_Layer: 0
-  m_Name: GameManeger
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,6 +286,11 @@ MonoBehaviour:
     type: 2}
   CrackLength: 1
   EnemySize: 3
+  MapWidth: 50
+  MapHeight: 50
+  roomCount: 0
+  PlayerPopPos: {x: 0, y: 0}
+  GorlPopPos: {x: 0, y: 0}
 --- !u!4 &1770424869
 Transform:
   m_ObjectHideFlags: 0
@@ -310,3 +315,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc4dea1b672fef47bff1e2e2f66fd7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerPos: {x: 0, y: 0}
+  GorlPos: {x: 0, y: 0}

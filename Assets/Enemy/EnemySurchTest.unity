@@ -221,7 +221,7 @@ Prefab:
     - target: {fileID: 114617647392082056, guid: 687c1ef15b7fc8e4a904a2592305bc4d,
         type: 2}
       propertyPath: EnemySize
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114617647392082056, guid: 687c1ef15b7fc8e4a904a2592305bc4d,
         type: 2}

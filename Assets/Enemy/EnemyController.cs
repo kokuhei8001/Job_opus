@@ -13,10 +13,12 @@ public enum EnemyStatus
 
 public enum Motion
 {
+    reset,
     Idle,
     Walk,
     Run,
-    TurnLeft
+    TurnLeft,
+    TurnRight
 }
 
 public class EnemyController : MonoBehaviour {
