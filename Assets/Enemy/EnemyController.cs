@@ -13,12 +13,13 @@ public enum EnemyStatus
 
 public enum Motion
 {
-    reset,
-    Idle,
-    Walk,
-    Run,
-    TurnLeft,
-    TurnRight
+    Idle = 0,
+    Walk = 1,
+    Run = 2,
+    WalkLeft = 11,
+    WalkRight = 12,
+    RunLeft = 21,
+    RunRight = 22
 }
 
 public class EnemyController : MonoBehaviour {
@@ -44,23 +45,7 @@ public class EnemyController : MonoBehaviour {
 
     private void Update()
     {
-        switch (motion)
-        {
-            case Motion.Idle:
-                anim.SetBool("IsRun", false);
-                anim.SetBool("IsWalk", false);
-                anim.SetBool("IsTurnLeft", false);
-                break;
-            case Motion.Run:
-                anim.SetBool("IsRun", true);
-                break;
-            case Motion.Walk:
-                anim.SetBool("IsWalk", true);
-                break;
-            case Motion.TurnLeft:
-                anim.SetBool("IsTurnLeft", true);
-                break;
-        }
+        anim.SetInteger("motionNum", (int)motion); //Int
 
         if (NowStatus == EnemyStatus.AutoSurch)
         {

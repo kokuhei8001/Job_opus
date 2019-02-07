@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114252839246188938}
   - component: {fileID: 114617647392082056}
   - component: {fileID: 114928854154930326}
+  - component: {fileID: 114914918793560102}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -53,6 +54,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc4dea1b672fef47bff1e2e2f66fd7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerPos: {x: 0, y: 0}
+  GorlPos: {x: 0, y: 0}
 --- !u!114 &114617647392082056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,8 +79,20 @@ MonoBehaviour:
   EnemySize: 0
   MapWidth: 50
   MapHeight: 50
-  PlayerpopPos: {x: 0, y: 0}
+  roomCount: 0
+  PlayerPopPos: {x: 0, y: 0}
   GorlPopPos: {x: 0, y: 0}
+--- !u!114 &114914918793560102
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1917850770970550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c55d927b881404ea81eac1a6826b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114928854154930326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,4 +105,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapCreate: {fileID: 114617647392082056}
-  RoutData: []

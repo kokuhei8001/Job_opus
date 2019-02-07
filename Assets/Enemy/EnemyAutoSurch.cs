@@ -80,9 +80,6 @@ public class EnemyAutoSurch : MonoBehaviour {
 
         Vector2Int End = new Vector2Int(TargetX,TargetY);//目的地の座標
 
-        Debug.Log(_gameManager.GetPosData(this.gameObject));
-        Debug.Log(End);
-
         Rout = _gameManager.ASter(this.gameObject, End);
 
         Debug.Log("2歩目" + Rout[Rout.Count - 2]);

@@ -71,6 +71,7 @@
     <Compile Include="Assets\Enemy\Locomotion Setup\Locomotion\Scripts\Locomotion.cs" />
     <Compile Include="Assets\Enemy\Locomotion Setup\Scripts\JoystickToEvents.cs" />
     <Compile Include="Assets\Enemy\Locomotion Setup\Scripts\LocomotionPlayer.cs" />
+    <Compile Include="Assets\JsonPacker.cs" />
     <Compile Include="Assets\Map\DoorScript.cs" />
     <Compile Include="Assets\Map\GameManager.cs" />
     <Compile Include="Assets\Map\Goal.cs" />
