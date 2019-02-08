@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMotion : MonoBehaviour {
 
     private Animator anim;
-    private bool IsMoov;
     
     Motion status;
 
@@ -13,7 +12,6 @@ public class PlayerMotion : MonoBehaviour {
     {
         status = 0;
         anim = GetComponent<Animator>();
-        IsMoov = false;
     }
 
     private void Update()
@@ -24,9 +22,6 @@ public class PlayerMotion : MonoBehaviour {
         //歩いて進む
         if (Input.GetKey(KeyCode.W))
         {
-            IsMoov = true;
-
-
             if (Input.GetKey(KeyCode.LeftShift))//shift押したら走る
             {
                 status = Motion.Run;
@@ -61,12 +56,6 @@ public class PlayerMotion : MonoBehaviour {
         else//なにも押されていなかったらアイドリング状態
         {
             status = Motion.Idle;
-        }
-
-        //Wを離したら
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            IsMoov = false;
         }
 
         if (status == Motion.Idle)

@@ -17,7 +17,6 @@ public class EnemyAutoSurch : MonoBehaviour {
     
     //目的地までのルート
     private List<Vector2Int> Rout = new List<Vector2Int>();
-    private int Count = 0;
     private Vector3 TargetPos;
 
 

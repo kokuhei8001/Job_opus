@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour {
 
@@ -13,10 +14,9 @@ public class Goal : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        var _player = other.GetComponent<PlayerMove>();
-
-        if (_player != null)
+        if (other.tag == "Player")
         {
+            SceneManager.LoadScene("ResultMenu");
             Debug.Log("GameClear!!");
         }
     }
