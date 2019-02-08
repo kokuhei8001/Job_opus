@@ -19,7 +19,12 @@ public enum Motion
     WalkLeft = 11,
     WalkRight = 12,
     RunLeft = 21,
-    RunRight = 22
+    RunRight = 22,
+
+    SpotLeft = -1,
+    SpotRigh = -2,
+
+    Back = -9
 }
 
 public class EnemyController : MonoBehaviour {

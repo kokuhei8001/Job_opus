@@ -31,8 +31,6 @@ public class EnemyAutoSurch : MonoBehaviour {
         //初回のルートを決めて実行する
         IsAutoSurch = true;
         RoutReset();
-        Debug.Log("RoutCount" + Rout.Count);
-        Debug.Log("最初の座標" + Rout[Rout.Count - 1]);
         if (Rout.Count != 0) { TargetPos = FindNextTarget(Rout[Rout.Count - 1].x, Rout[Rout.Count - 1].y); }
         transform.LookAt(TargetPos);
         _enemyManager.motion = Motion.Walk;
@@ -72,6 +70,7 @@ public class EnemyAutoSurch : MonoBehaviour {
     //ランダムな場所を取得してそこまでのルートを記録する。
     private void RoutReset()
     {
+
         Rout = new List<Vector2Int>();
 
         int TargetRoom = Random.Range(0, _mapcreat.roomCount);
@@ -79,17 +78,12 @@ public class EnemyAutoSurch : MonoBehaviour {
         int TargetY = Random.Range(_mapcreat.room[TargetRoom].Pos.y, _mapcreat.room[TargetRoom].Pos.y + _mapcreat.room[TargetRoom].Size.y);
 
         Vector2Int End = new Vector2Int(TargetX,TargetY);//目的地の座標
-
-        Rout = _gameManager.ASter(this.gameObject, End);
-
-        Debug.Log("2歩目" + Rout[Rout.Count - 2]);
-        
+        Rout = _gameManager.ASter(this.gameObject, End);        
     }
 
     private Vector3 FindNextTarget(int i,int k)
     {
         GameObject tempObj = GameObject.Find("Ground[" + k + "," + i +"]");
-        Debug.Log(tempObj.transform.position);
         if (tempObj != null)
         {
             Vector3 answer = new Vector3(tempObj.transform.position.x, this.gameObject.transform.position.y, tempObj.transform.position.z);

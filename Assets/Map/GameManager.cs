@@ -50,11 +50,13 @@ public class GameManager : MonoBehaviour {
     public Vector2Int GetPosData(GameObject myself)
     {
         Vector3 under = new Vector3(0, -90, 0);
-        Ray ray = new Ray(myself.transform.position, under);
+        Vector3 myposition = new Vector3(myself.transform.position.x, myself.transform.position.y + 0.2f, myself.transform.position.z);
+
+        Ray ray = new Ray(myposition, under);
         RaycastHit hit;
         float distance = 2.0f;
         //Debug
-        Debug.DrawRay(myself.transform.position, under * distance, Color.blue);
+        Debug.DrawRay(myposition, under * distance, Color.blue);
 
         if (Physics.Raycast(ray, out hit, distance))
         {

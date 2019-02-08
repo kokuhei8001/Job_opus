@@ -31,8 +31,8 @@ public class JsonPacker : MonoBehaviour
 
         if (_data != null)
         {
-            Debug.Log(_data.Id);
-            Debug.Log("x:" + _data.pos.x + "y:" + _data.pos.y);
+            //Debug.Log(_data.Id);
+            //Debug.Log("x:" + _data.pos.x + "y:" + _data.pos.y);
         }
     }
 

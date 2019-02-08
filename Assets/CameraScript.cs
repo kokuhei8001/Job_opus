@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour {
 
-    private GameObject Player;
-    private Quaternion Direction;
+    private void OnTriggerEnter(Collider other)
+    {
+        var wall = other.gameObject.tag;
 
-	void Start () {
-        Player = GameObject.Find("Player");
-        Direction = transform.rotation;
-	}
-	
-	void Update () {
+        if (wall == "Wall")
+        {
+            var mesh = other.GetComponent<MeshRenderer>();
+            mesh.enabled = false;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        var wall = other.gameObject.tag;
 
-        Vector3 Pos = new Vector3(
-            Player.transform.position.x,
-            Player.transform.position.y + 1,
-            Player.transform.position.z - 1
-            );
-
-        transform.position = Pos;
-        transform.rotation = Direction;
-	}
+        if (wall == "Wall")
+        {
+            var mesh = other.GetComponent<MeshRenderer>();
+            mesh.enabled = true;
+        }
+    }
 }

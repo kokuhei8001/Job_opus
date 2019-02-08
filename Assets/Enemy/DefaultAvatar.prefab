@@ -140,8 +140,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4231209150971070}
   - component: {fileID: 95861139654504492}
-  - component: {fileID: 114379081636122922}
   - component: {fileID: 114710223976624132}
+  - component: {fileID: 114379081636122922}
   m_Layer: 0
   m_Name: DefaultAvatar
   m_TagString: Untagged

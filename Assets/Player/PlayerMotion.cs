@@ -25,7 +25,7 @@ public class PlayerMotion : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
         {
             IsMoov = true;
-            status = Motion.Walk;
+
 
             if (Input.GetKey(KeyCode.LeftShift))//shift押したら走る
             {
@@ -48,9 +48,13 @@ public class PlayerMotion : MonoBehaviour {
                 {
                     status = Motion.WalkRight;
                 }
-                if (Input.GetKey(KeyCode.A))
+                else if (Input.GetKey(KeyCode.A))
                 {
                     status = Motion.WalkLeft;
+                }
+                else
+                {
+                    status = Motion.Walk;
                 }
             }
         }
@@ -67,13 +71,18 @@ public class PlayerMotion : MonoBehaviour {
 
         if (status == Motion.Idle)
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
             {
-                anim.SetTrigger("IsTurnRightTrigger");
+                status = Motion.SpotRigh;
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
-                anim.SetTrigger("IsTurnLeftTrigger");
+                status = Motion.SpotLeft;
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                status = Motion.Back;
             }
         }
     }

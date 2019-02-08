@@ -455,7 +455,8 @@ public class MapCreate : MonoBehaviour
         PlayerPopRoom = Random.Range(0, roomCount);
         int PopPosX = Random.Range(room[PlayerPopRoom].Pos.x, room[PlayerPopRoom].Pos.x + room[PlayerPopRoom].Size.x);
         int PopPosY = Random.Range(room[PlayerPopRoom].Pos.y, room[PlayerPopRoom].Pos.y + room[PlayerPopRoom].Size.y);
-        Instantiate(Player, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
+        //Instantiate(Player, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
+        Instantiate(Player, new Vector3(PopPosX * CrackLength, -0.5f, PopPosY * CrackLength), Quaternion.identity);
 
         PlayerPopPos = new Vector2Int(PopPosX, PopPosY);
 
@@ -478,7 +479,7 @@ public class MapCreate : MonoBehaviour
         int PopPosY = Random.Range(room[EnemyPopRoom].Pos.y, room[EnemyPopRoom].Pos.y + room[EnemyPopRoom].Size.y);
 
         //Instantiate(Enemy, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
-        Instantiate(Enemy, new Vector3(PopPosX * CrackLength, 0, PopPosY * CrackLength), Quaternion.identity);
+        Instantiate(Enemy, new Vector3(PopPosX * CrackLength, -0.5f, PopPosY * CrackLength), Quaternion.identity);
 
     }
 
