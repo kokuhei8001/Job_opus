@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class SaveData
 {
-
-    //セーブに必要な変数またはクラスを用意する
-    public int Id = 0;
-    public Vector2 pos = new Vector2(0, 0);
-
+    public int SaveDataVersion = 0;
+    public Vector2Int ScoreTime = new Vector2Int(0,0);
 }
 
 [SerializeField]
@@ -26,20 +23,18 @@ public class JsonPacker : MonoBehaviour
 
     private void Start()
     {
-        //Debug.Log(SaveData.FilePath);
         _data = LoadFromJson();
 
+        //もしデータがあるなら
         if (_data != null)
         {
-            //Debug.Log(_data.Id);
-            //Debug.Log("x:" + _data.pos.x + "y:" + _data.pos.y);
         }
     }
 
     private void Update()
     {
-        if (_data == null) return;                  //とりあえずSaveDataに何もなかったら何もやらない.
-
+        //とりあえずSaveDataに何もなかったら何もやらない.
+        if (_data == null) return;                  
     }
 
     //アプリケーションが終了時（タスクキル）に呼び出される
@@ -59,16 +54,13 @@ public class JsonPacker : MonoBehaviour
     {
         if (!File.Exists(FilePath))//ファイルがない場合
         {
-            Debug.Log("FileEmpty!");
+            SaveData NewData = new SaveData();
 
-            SaveData test = new SaveData();
-
-            return test;
+            return NewData;
         }
 
         string sd = File.ReadAllText(FilePath); //filePathだとnullになる。Application.persistentDataPathだとアクセスが許可されていないになる
-
-
+        
         return JsonUtility.FromJson<SaveData>(sd);
         //return JsonUtility.FromJson(sd, typeof(SaveData)) as SaveData;
     }

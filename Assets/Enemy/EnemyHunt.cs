@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy_script : MonoBehaviour {
+public class EnemyHunt : MonoBehaviour {
 
     private EnemyController manager;
 
@@ -10,24 +10,40 @@ public class enemy_script : MonoBehaviour {
     private GameObject _player;//プレイヤーの情報
     private Vector3 player_pos; //プレイヤーの位置情報
     private Vector3 myself_pos; //自分の位置情報
-    
-    private Rigidbody rb;
+
+    private int GessHuntTrigger = 0;//GessHuntに移行するための変数0が通常探索、１が追跡、２がGessHuntへの移行。その後0に戻る
 
     private void Start()
     {
         manager = GetComponent<EnemyController>();
-        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
         if (IsSearching)
         {
-            player_pos = _player.transform.position;
-            if(SearchRay())
+            player_pos = new Vector3(
+                _player.transform.position.x,
+                _player.transform.position.y + 1,
+                _player.transform.position.z
+                );
+
+            if (SearchRay())
             {
-                RunToPlayer();
-                //manager.NowStatus = EnemyStatus.Hunt;
+                GessHuntTrigger = 1;
+                LookToPlayer();
+                Debug.Log("LookPlayer");
+                manager.NowStatus = EnemyStatus.Hunt;
+                manager.debug = true;
+            }
+            else
+            {
+                if (GessHuntTrigger == 1)
+                {
+                    Debug.Log("GessHuntはつ");
+                    manager.NowStatus = EnemyStatus.Idling;
+                    GessHuntTrigger = 0;
+                }
             }
         }
     }
@@ -72,12 +88,11 @@ public class enemy_script : MonoBehaviour {
         return false;
     }
     //プレイヤーを追跡している状態
-    private void RunToPlayer()
+    private void LookToPlayer()
     {
         myself_pos = transform.position;
         Vector3 target_pos = new Vector3(player_pos.x, myself_pos.y, player_pos.z);
 
         transform.LookAt(target_pos);//プレイヤーの方を向く
-        rb.MovePosition(myself_pos + transform.forward * Time.deltaTime);//前方に進む
     }
 }

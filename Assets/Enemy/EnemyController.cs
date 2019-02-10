@@ -11,54 +11,50 @@ public enum EnemyStatus
     Down    　 //気絶状態
 }
 
-public enum Motion
-{
-    Idle = 0,
-    Walk = 1,
-    Run = 2,
-    WalkLeft = 11,
-    WalkRight = 12,
-    RunLeft = 21,
-    RunRight = 22,
-
-    SpotLeft = -1,
-    SpotRigh = -2,
-
-    Back = -9
-}
-
 public class EnemyController : MonoBehaviour {
 
     private EnemyAutoSurch _enemyAutoSurch;
-    private enemy_script _enemyScript;
+    private EnemyHunt _enemyScript;
     
     public EnemyStatus NowStatus;
     private Animator anim;
-    public Motion motion;
+    private Motion motion;
+
+    public bool debug = false;
 
     private void Awake()
     {
         _enemyAutoSurch = GetComponent<EnemyAutoSurch>();
-        _enemyScript = GetComponent<enemy_script>();
-        motion = Motion.Idle;
+        _enemyScript = GetComponent<EnemyHunt>();
         anim = GetComponent<Animator>();
 
         NowStatus = EnemyStatus.AutoSurch;
     }
-
-
-
+    
     private void Update()
     {
+        switch (NowStatus)
+        {
+            case EnemyStatus.Idling:
+                motion = Motion.Idle;
+                break;
+            case EnemyStatus.Hunt:
+                motion = Motion.Run;
+                break;
+            case EnemyStatus.AutoSurch:
+                motion = Motion.Walk;
+                break;
+            case EnemyStatus.GessHunt:
+                motion = Motion.Run;
+                break;
+        }
+
+        if (debug)
+        {
+            Debug.Log(NowStatus);
+        }
+
         anim.SetInteger("motionNum", (int)motion); //Int
 
-        if (NowStatus == EnemyStatus.AutoSurch)
-        {
-            _enemyAutoSurch.IsAutoSurch = true;
-        }
-        else { _enemyAutoSurch.IsAutoSurch = false; }
     }
-
-
-
 }

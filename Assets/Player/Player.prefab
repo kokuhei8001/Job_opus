@@ -996,7 +996,7 @@ GameObject:
   - component: {fileID: 81715684246944598}
   - component: {fileID: 114464058215413352}
   - component: {fileID: 65155658907875696}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -5177,7 +5177,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1731424312641984}
   m_Material: {fileID: 13400000, guid: cb0583b24ab5c7342b5f346e960bf5a4, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.25
   m_Height: 1.5

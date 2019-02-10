@@ -136,9 +136,6 @@ public class ASterArg : MonoBehaviour {
                     MapASterData[x, y].GessCost = CalculationCost(new Vector2Int(x, y),Gorl);
                     MapASterData[x, y].TotalCost = MapASterData[x, y].Cost + MapASterData[x, y].GessCost;
 
-                    //これをすることで大きく速度が変わる（要検証）
-                    //MapASterData[x, y].OpenData = ASterStatus.Close;
-
                     ASterOpenList.Add(MapASterData[x, y]);
                 }
             }

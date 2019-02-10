@@ -2,6 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Motion
+{
+    Idle = 0,
+    Walk = 1,
+    Run = 2,
+    WalkLeft = 11,
+    WalkRight = 12,
+    RunLeft = 21,
+    RunRight = 22,
+
+    SpotLeft = -1,
+    SpotRigh = -2,
+
+    Back = -9
+}
+
 public class MapData
 {
     //基本情報

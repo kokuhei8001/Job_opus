@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class EnemyAutoSurch : MonoBehaviour {
 
-    //自動探索が行われるかどうかを決定する変数
-    public bool IsAutoSurch;
-
     //他のスクリプトへのリンク
     private GameObject _Manager;
     private GameManager _gameManager;
@@ -17,33 +14,30 @@ public class EnemyAutoSurch : MonoBehaviour {
     
     //目的地までのルート
     private List<Vector2Int> Rout = new List<Vector2Int>();
-    private Vector3 TargetPos;
+    private Vector3 TargetPos; //次のブロックのPosition
 
 
     private void Start()
     {
+        //必要なスクリプトを入れていく
         _Manager = GameObject.Find("GameManager");
         _gameManager = _Manager.GetComponent<GameManager>();
         _mapcreat = _Manager.GetComponent<MapCreate>();
         _enemyManager = GetComponent<EnemyController>();
 
         //初回のルートを決めて実行する
-        IsAutoSurch = true;
         RoutReset();
         if (Rout.Count != 0) { TargetPos = FindNextTarget(Rout[Rout.Count - 1].x, Rout[Rout.Count - 1].y); }
         transform.LookAt(TargetPos);
-        _enemyManager.motion = Motion.Walk;
     }
 
     private void Update()
     {
-        if (IsAutoSurch)
+        if (_enemyManager.NowStatus == EnemyStatus.AutoSurch)
         {
             //マスに付いたら次のマスへ進む
-            if (TargetPos.x - 0.2f < transform.position.x && transform.position.x < TargetPos.x + 0.2f)
-            {
-                if (TargetPos.z - 0.2f < transform.position.z && transform.position.z < TargetPos.z + 0.2f)
-                {
+            if (TargetPos.x - 0.2f < transform.position.x && transform.position.x < TargetPos.x + 0.2f){
+                if (TargetPos.z - 0.2f < transform.position.z && transform.position.z < TargetPos.z + 0.2f){
                     if (Rout.Count != 0)
                     {
                         Rout.RemoveAt(Rout.Count - 1);
@@ -51,19 +45,18 @@ public class EnemyAutoSurch : MonoBehaviour {
                         {
                             TargetPos = FindNextTarget(Rout[Rout.Count - 1].x, Rout[Rout.Count - 1].y);
                             transform.LookAt(TargetPos);
-                            _enemyManager.motion = Motion.Walk;
                         }
-                        else { _enemyManager.motion = Motion.Idle; }
+                        else
+                        {
+                            //ルートの終点に到達したらアイドリング状態にする
+                            //ここでずっと更新されてるから追跡されない
+                            _enemyManager.NowStatus = EnemyStatus.Idling;
+                        }
                     }
                 }
             }
         }
 
-        //デバッグモード
-        if (Input.GetKeyDown(KeyCode.Alpha3))//3を推したらルートがリセットされる
-        {
-            RoutReset();
-        }
     }
 
     //ランダムな場所を取得してそこまでのルートを記録する。
