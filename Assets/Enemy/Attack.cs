@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Attack : MonoBehaviour {
 
+    [SerializeField] private GameObject Enemy;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,7 +16,7 @@ public class Attack : MonoBehaviour {
 
         if (other.gameObject.tag == "Enemy")
         {
-            var on = other.gameObject.GetComponent<SphereCollider>();
+            var on = Enemy.GetComponent<SphereCollider>();
             on.enabled = false;
         }
     }
@@ -24,7 +25,7 @@ public class Attack : MonoBehaviour {
     {
         if (other.gameObject.tag == "Enemy")
         {
-            var on = other.gameObject.GetComponent<SphereCollider>();
+            var on = Enemy.GetComponent<SphereCollider>();
             on.enabled = true;
         }
     }
