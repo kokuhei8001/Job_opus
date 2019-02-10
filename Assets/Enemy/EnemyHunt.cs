@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHunt : MonoBehaviour {
 
+    private GameManager gamemanager;
     private EnemyController manager;
 
     private bool IsSearching = false; //追いかけているか
@@ -11,10 +12,14 @@ public class EnemyHunt : MonoBehaviour {
     private Vector3 player_pos; //プレイヤーの位置情報
     private Vector3 myself_pos; //自分の位置情報
 
+    private List<Vector2Int> gessRout = new List<Vector2Int>();
+    private Vector3 TargetPos; //次のブロックのPosition
+
     private int GessHuntTrigger = 0;//GessHuntに移行するための変数0が通常探索、１が追跡、２がGessHuntへの移行。その後0に戻る
 
     private void Start()
     {
+        gamemanager = GameObject.Find("GameManager").GetComponent<GameManager>();
         manager = GetComponent<EnemyController>();
     }
 
@@ -34,18 +39,48 @@ public class EnemyHunt : MonoBehaviour {
                 LookToPlayer();
                 Debug.Log("LookPlayer");
                 manager.NowStatus = EnemyStatus.Hunt;
-                manager.debug = true;
             }
             else
             {
                 if (GessHuntTrigger == 1)
                 {
-                    Debug.Log("GessHuntはつ");
-                    manager.NowStatus = EnemyStatus.Idling;
+                    //最後に見失った場所まで走る
+                    manager.NowStatus = EnemyStatus.GessHunt;
+                    Vector2Int PlayerPos = gamemanager.GetPosData(_player);
+                    gessRout = gamemanager.ASter(this.gameObject, PlayerPos);
+                    if (gessRout.Count != 0) { TargetPos = FindNextTarget(gessRout[gessRout.Count - 1].x, gessRout[gessRout.Count - 1].y); }
+                    transform.LookAt(TargetPos);
+
                     GessHuntTrigger = 0;
                 }
             }
         }
+
+        if (manager.NowStatus == EnemyStatus.GessHunt)
+        {
+            //マスに付いたら次のマスへ進む
+            if (TargetPos.x - 0.2f < transform.position.x && transform.position.x < TargetPos.x + 0.2f)
+            {
+                if (TargetPos.z - 0.2f < transform.position.z && transform.position.z < TargetPos.z + 0.2f)
+                {
+                    if (gessRout.Count != 0)
+                    {
+                        gessRout.RemoveAt(gessRout.Count - 1);
+                        if (gessRout.Count != 0)
+                        {
+                            TargetPos = manager.FindNextTarget(gessRout[gessRout.Count - 1].x, gessRout[gessRout.Count - 1].y);
+                            transform.LookAt(TargetPos);
+                        }
+                        else
+                        {
+                            manager.NowStatus = EnemyStatus.Idling;
+                        }
+                    }
+                }
+            }
+        }
+        
+
     }
 
     //範囲内に入った瞬間
@@ -94,5 +129,20 @@ public class EnemyHunt : MonoBehaviour {
         Vector3 target_pos = new Vector3(player_pos.x, myself_pos.y, player_pos.z);
 
         transform.LookAt(target_pos);//プレイヤーの方を向く
+    }
+
+    private Vector3 FindNextTarget(int i, int k)
+    {
+        GameObject tempObj = GameObject.Find("Ground[" + k + "," + i + "]");
+        if (tempObj != null)
+        {
+            Vector3 answer = new Vector3(tempObj.transform.position.x, this.gameObject.transform.position.y, tempObj.transform.position.z);
+            return answer;
+        }
+        else
+        {
+            Debug.Log("エネミールートにエラー");
+            return new Vector3(0, 100, 0);
+        }
     }
 }
