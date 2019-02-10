@@ -5,6 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour {
 
+    private JsonPacker _Savedata;
+    private GameManager manager;
+
+    private void Start()
+    {
+        GameObject Manager = GameObject.Find("GameManager");
+        manager = Manager.GetComponent<GameManager>();
+        _Savedata = Manager.GetComponent<JsonPacker>();
+    }
 
     private void Update()
     {
@@ -16,6 +25,8 @@ public class Goal : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            _Savedata.SaveToJson(_Savedata._data ,manager.Score);
+
             SceneManager.LoadScene("ResultMenu");
             Debug.Log("GameClear!!");
         }

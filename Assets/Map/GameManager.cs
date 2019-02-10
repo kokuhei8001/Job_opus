@@ -44,12 +44,29 @@ public class RoadData : MapData
 
 public class GameManager : MonoBehaviour {
 
+    public Vector2Int Score = new Vector2Int(0,0);
+    private float _second = 0;
+
     public MapData[,] Map;
     public RoomData[,] roomData;
     public RoadData[,] roadData;
 
     public Vector2Int PlayerPos;
     public Vector2Int GorlPos;
+
+
+    private void Update()
+    {
+        _second += Time.deltaTime;
+        if (_second > 60)
+        {
+            Score.x++;
+            _second = 0;
+        }
+
+        Score = new Vector2Int(Score.x, (int)_second);
+    }
+
 
 
     //始点から目的地までを探索し、ルートをvecter2Intのリストで返す

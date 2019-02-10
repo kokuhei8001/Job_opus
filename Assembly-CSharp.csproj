@@ -80,6 +80,7 @@
     <Compile Include="Assets\Player\PlayerMotion.cs" />
     <Compile Include="Assets\Player\PlayerMove.cs" />
     <Compile Include="Assets\Scenes\Script\ResultButton.cs" />
+    <Compile Include="Assets\Scenes\Script\ResultRanking.cs" />
     <Compile Include="Assets\Scenes\Script\StartMenuButoon.cs" />
     <Compile Include="Assets\TimeScript.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />

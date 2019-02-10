@@ -54,6 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc4dea1b672fef47bff1e2e2f66fd7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Score: {x: 0, y: 0}
   PlayerPos: {x: 0, y: 0}
   GorlPos: {x: 0, y: 0}
 --- !u!114 &114617647392082056
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Manager: {fileID: 114252839246188938}
   Player: {fileID: 1731424312641984, guid: 48720967623e2d04693ade0aba89c15f, type: 2}
-  Enemy: {fileID: 1121743746631906, guid: 687b0a2e114cdfa4da8438abf8ac65f5, type: 2}
+  Enemy: {fileID: 1156048733462898, guid: 57e7886ea9f338f4d964a4c4930cb7c7, type: 2}
   Goal: {fileID: 1731358414272358, guid: 520869e49e462f24b9232f751221cf59, type: 2}
   WallObject: {fileID: 1288550656310186, guid: f85b41cdca3d3614eb7b0dcde50d2403, type: 2}
   DoorObject: {fileID: 1823320862523504, guid: e6ecf7183611e13499a0272a8433eff8, type: 2}
