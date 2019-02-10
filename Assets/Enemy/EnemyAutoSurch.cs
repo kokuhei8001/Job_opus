@@ -15,7 +15,8 @@ public class EnemyAutoSurch : MonoBehaviour {
     //目的地までのルート
     private List<Vector2Int> Rout = new List<Vector2Int>();
     private Vector3 TargetPos; //次のブロックのPosition
-    
+
+    private float IsFreez;
     public bool IsReset = true;
 
     private void Start()
@@ -53,8 +54,6 @@ public class EnemyAutoSurch : MonoBehaviour {
                         }
                         else
                         {
-                            //ルートの終点に到達したらアイドリング状態にする
-                            //ここでずっと更新されてるから追跡されない
                             _enemyManager.NowStatus = EnemyStatus.Idling;
                         }
                     }

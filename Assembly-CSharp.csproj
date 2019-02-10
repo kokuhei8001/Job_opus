@@ -64,6 +64,7 @@
     <Compile Include="Assets\ASterArg\ASterArg.cs" />
     <Compile Include="Assets\ASterArg\ASterDataView.cs" />
     <Compile Include="Assets\ASterArg\ASterTestScript.cs" />
+    <Compile Include="Assets\Enemy\Attack.cs" />
     <Compile Include="Assets\Enemy\EnemyAutoSurch.cs" />
     <Compile Include="Assets\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Enemy\EnemyHunt.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Player\CameraScript.cs" />
     <Compile Include="Assets\Player\PlayerMotion.cs" />
     <Compile Include="Assets\Player\PlayerMove.cs" />
+    <Compile Include="Assets\Scenes\Script\GameOverButton.cs" />
     <Compile Include="Assets\Scenes\Script\ResultButton.cs" />
     <Compile Include="Assets\Scenes\Script\ResultRanking.cs" />
     <Compile Include="Assets\Scenes\Script\StartMenuButoon.cs" />
