@@ -180,7 +180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uFF32\uFF25\uFF34\uFF32\uFF39"
+  m_Text: "START\u3000GAME"
 --- !u!222 &12386463
 CanvasRenderer:
   m_ObjectHideFlags: 0

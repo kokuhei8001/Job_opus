@@ -37,7 +37,6 @@ public class EnemyHunt : MonoBehaviour {
             {
                 GessHuntTrigger = 1;
                 LookToPlayer();
-                Debug.Log("LookPlayer");
                 manager.NowStatus = EnemyStatus.Hunt;
             }
             else

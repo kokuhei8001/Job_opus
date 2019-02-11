@@ -50,7 +50,6 @@ public class EnemyAutoSurch : MonoBehaviour {
                         if (Rout.Count != 0)
                         {
                             TargetPos = _enemyManager.FindNextTarget(Rout[Rout.Count - 1].x, Rout[Rout.Count - 1].y);
-                            transform.LookAt(TargetPos);
                         }
                         else
                         {
@@ -59,6 +58,7 @@ public class EnemyAutoSurch : MonoBehaviour {
                     }
                 }
             }
+            transform.LookAt(TargetPos);
         }
 
     }

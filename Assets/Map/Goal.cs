@@ -25,7 +25,7 @@ public class Goal : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            _Savedata.SaveToJson(_Savedata._data ,manager.Score);
+            _Savedata.SaveToJson(manager.Score);
 
             SceneManager.LoadScene("ResultMenu");
             Debug.Log("GameClear!!");

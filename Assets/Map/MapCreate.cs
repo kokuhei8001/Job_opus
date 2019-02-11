@@ -437,6 +437,7 @@ public class MapCreate : MonoBehaviour
                     Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
                 }
                 GameObject _Ground = Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
+                GameObject _UPLord = Instantiate(GroundObject, new Vector3(k * CrackLength, 2, i * CrackLength), Quaternion.identity, Parent.transform);
                 _Ground.name = "Ground[" + i + "," + k + "]";
                 GroundData G = _Ground.GetComponent<GroundData>();
                 if (G != null)

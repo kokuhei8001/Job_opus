@@ -119,7 +119,6 @@ public class ASterArg : MonoBehaviour {
                         tempPos = MapASterData[tempPos.x, tempPos.y].Parent;
                     }
                 }
-                Debug.Log("目的地を見つけました");
                 Surch = false; //A*を中止させる
                 break;//このfor文抜ける
             }

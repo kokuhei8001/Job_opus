@@ -5,10 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class GameOverButton : MonoBehaviour {
 
+    [SerializeField] int NUM;
 
     public void Onclick()
     {
-        SceneManager.LoadScene("StartMenu");
+        if (NUM == 0)
+        {
+            SceneManager.LoadScene("StartMenu");
+        }
+        if (NUM == 1)
+        {
+            SceneManager.LoadScene("MainGame");
+        }
     }
 
 }

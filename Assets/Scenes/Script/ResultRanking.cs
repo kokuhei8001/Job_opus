@@ -15,9 +15,6 @@ public class ResultRanking : MonoBehaviour {
     {
         json = GameObject.Find("GameManager").GetComponent<JsonPacker>();
         _data = json.LoadFromJson();
-
-        Debug.Log(_data.TimeRanking[0]);
-
         for (int i = 0; i < _data.TimeRanking.Count; i++)
         {
             if (NUM == i + 1)

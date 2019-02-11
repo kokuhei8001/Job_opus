@@ -19,35 +19,40 @@ public class JsonPacker : MonoBehaviour
     private void Awake()
     {
         FilePath = Path.Combine(Application.persistentDataPath, "savedata.json");
+        Debug.Log(FilePath);
         _data = LoadFromJson();
     }
 
     //セーブ（ファイルを書き込む）
-    public void SaveToJson(SaveData data , Vector2Int Score)
+    public void SaveToJson(Vector2Int Score)
     {
+        SaveData data = LoadFromJson();
         data.TimeRanking.Add(Score);
 
-        for (int i = 0;i < data.TimeRanking.Count; i++)
+        if (data.TimeRanking.Count > 1)
         {
-            if (data.TimeRanking[i].x < data.TimeRanking[i + 1].x)
+            for (int i = 0; i < data.TimeRanking.Count; i++)
             {
-                Vector2Int temp = data.TimeRanking[i];
-                data.TimeRanking[i] = data.TimeRanking[i + 1];
-                data.TimeRanking[i + 1] = temp;
+                if (data.TimeRanking[i].x < data.TimeRanking[i + 1].x)
+                {
+                    Vector2Int temp = data.TimeRanking[i];
+                    data.TimeRanking[i] = data.TimeRanking[i + 1];
+                    data.TimeRanking[i + 1] = temp;
+                }
+                else
+                { break; }
             }
-            else
-            { break; }
-        }
-        for (int i = 0; i < data.TimeRanking.Count; i++)
-        {
-            if (data.TimeRanking[i].y < data.TimeRanking[i + 1].y)
+            for (int i = 0; i < data.TimeRanking.Count; i++)
             {
-                Vector2Int temp = data.TimeRanking[i];
-                data.TimeRanking[i] = data.TimeRanking[i + 1];
-                data.TimeRanking[i + 1] = temp;
+                if (data.TimeRanking[i].y < data.TimeRanking[i + 1].y)
+                {
+                    Vector2Int temp = data.TimeRanking[i];
+                    data.TimeRanking[i] = data.TimeRanking[i + 1];
+                    data.TimeRanking[i + 1] = temp;
+                }
+                else
+                { break; }
             }
-            else
-            { break; }
         }
         //for (int i = data.TimeRanking.Count - 1; i < -1; i--)
         //{
