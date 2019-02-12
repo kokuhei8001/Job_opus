@@ -61,9 +61,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ASterArg\ASterArg.cs" />
-    <Compile Include="Assets\ASterArg\ASterDataView.cs" />
-    <Compile Include="Assets\ASterArg\ASterTestScript.cs" />
     <Compile Include="Assets\Enemy\Attack.cs" />
     <Compile Include="Assets\Enemy\EnemyAutoSurch.cs" />
     <Compile Include="Assets\Enemy\EnemyController.cs" />
@@ -71,9 +68,8 @@
     <Compile Include="Assets\Enemy\Locomotion Setup\Locomotion\Scripts\Locomotion.cs" />
     <Compile Include="Assets\Enemy\Locomotion Setup\Scripts\JoystickToEvents.cs" />
     <Compile Include="Assets\Enemy\Locomotion Setup\Scripts\LocomotionPlayer.cs" />
-    <Compile Include="Assets\JsonPacker.cs" />
+    <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\Map\DoorScript.cs" />
-    <Compile Include="Assets\Map\GameManager.cs" />
     <Compile Include="Assets\Map\Goal.cs" />
     <Compile Include="Assets\Map\GroundData.cs" />
     <Compile Include="Assets\Map\MapCreate.cs" />
@@ -84,7 +80,11 @@
     <Compile Include="Assets\Scenes\Script\ResultButton.cs" />
     <Compile Include="Assets\Scenes\Script\ResultRanking.cs" />
     <Compile Include="Assets\Scenes\Script\StartMenuButoon.cs" />
-    <Compile Include="Assets\TimeScript.cs" />
+    <Compile Include="Assets\Scripts\ASterArg\ASterArg.cs" />
+    <Compile Include="Assets\Scripts\ASterArg\ASterDataView.cs" />
+    <Compile Include="Assets\Scripts\ASterArg\ASterTestScript.cs" />
+    <Compile Include="Assets\Scripts\JsonPacker.cs" />
+    <Compile Include="Assets\Scripts\TimeScript.cs" />
     <Compile Include="Assets\UnityChan\Scripts\CameraController.cs" />
     <Compile Include="Assets\UnityChan\Scripts\FaceUpdate.cs" />
     <Compile Include="Assets\UnityChan\Scripts\IdleChanger.cs" />

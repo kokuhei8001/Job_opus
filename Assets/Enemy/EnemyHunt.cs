@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHunt : MonoBehaviour {
 
+    //必要なコンポーネント
     private GameManager gamemanager;
     private EnemyController manager;
 
@@ -35,6 +36,7 @@ public class EnemyHunt : MonoBehaviour {
 
             if (SearchRay())
             {
+                //プレイヤーが見えているなら
                 GessHuntTrigger = 1;
                 LookToPlayer();
                 manager.NowStatus = EnemyStatus.Hunt;
@@ -43,14 +45,14 @@ public class EnemyHunt : MonoBehaviour {
             {
                 if (GessHuntTrigger == 1)
                 {
-                    //最後に見失った場所まで走る
+                    //もし直前まで追いかけていたなら最後に見失った場所まで走る
                     manager.NowStatus = EnemyStatus.GessHunt;
                     Vector2Int PlayerPos = gamemanager.GetPosData(_player);
                     gessRout = gamemanager.ASter(this.gameObject, PlayerPos);
                     if (gessRout.Count != 0) { TargetPos = FindNextTarget(gessRout[gessRout.Count - 1].x, gessRout[gessRout.Count - 1].y); }
                     transform.LookAt(TargetPos);
 
-                    GessHuntTrigger = 0;
+                    GessHuntTrigger = 0;//トリガーを元に戻す
                 }
             }
         }

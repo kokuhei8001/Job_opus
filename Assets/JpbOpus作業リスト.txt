@@ -59,8 +59,13 @@
 ・180度ターン
 <02.09>
 
+
+C:/Users/kokuhei/AppData/LocalLow/DefaultCompany/Job_opus\savedata.json
+
 ・リザルト画面(SaveData)
 	*サーブデータ画面はできたがランキング機能が実装されてくれない
+・GAME　ENDを押したらちゃんとゲームが終了するようにする
+・コードにコメントを付けて、アセットを整理する。（見せられる状態にする）
 
 
 

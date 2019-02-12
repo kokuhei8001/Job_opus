@@ -15,13 +15,13 @@ public class EnemyAutoSurch : MonoBehaviour {
     //目的地までのルート
     private List<Vector2Int> Rout = new List<Vector2Int>();
     private Vector3 TargetPos; //次のブロックのPosition
-
-    private float IsFreez;
+    
+    //自動探索のルートをリセットするかどうか
     public bool IsReset = true;
 
     private void Start()
     {
-        //必要なスクリプトを入れていく
+        //必要なスクリプトを取得する
         _Manager = GameObject.Find("GameManager");
         _gameManager = _Manager.GetComponent<GameManager>();
         _mapcreat = _Manager.GetComponent<MapCreate>();
@@ -31,8 +31,10 @@ public class EnemyAutoSurch : MonoBehaviour {
 
     private void Update()
     {
+        //もし自動探索状態なら
         if (_enemyManager.NowStatus == EnemyStatus.AutoSurch)
         {
+            //リセットするなら
             if (IsReset)
             {
                 RoutReset();
@@ -49,15 +51,19 @@ public class EnemyAutoSurch : MonoBehaviour {
                         Rout.RemoveAt(Rout.Count - 1);
                         if (Rout.Count != 0)
                         {
+                            //次のマスを探す
                             TargetPos = _enemyManager.FindNextTarget(Rout[Rout.Count - 1].x, Rout[Rout.Count - 1].y);
                         }
                         else
                         {
+                            //もしゴールに付いたならアイドリング状態にする
                             _enemyManager.NowStatus = EnemyStatus.Idling;
                         }
                     }
                 }
             }
+
+            //マイフレームLookAtしないと何かにぶつかって方向がずれた時永遠と進んでしまう。
             transform.LookAt(TargetPos);
         }
 

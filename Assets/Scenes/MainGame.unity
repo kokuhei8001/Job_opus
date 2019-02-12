@@ -278,7 +278,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 1379214267}
   - component: {fileID: 1379214266}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,6 +450,17 @@ Prefab:
       value: 
       objectReference: {fileID: 1502898517352824, guid: 57e7886ea9f338f4d964a4c4930cb7c7,
         type: 2}
+    - target: {fileID: 114617647392082056, guid: 687c1ef15b7fc8e4a904a2592305bc4d,
+        type: 2}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1731424312641984, guid: 48720967623e2d04693ade0aba89c15f,
+        type: 2}
+    - target: {fileID: 114617647392082056, guid: 687c1ef15b7fc8e4a904a2592305bc4d,
+        type: 2}
+      propertyPath: ceiling
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 687c1ef15b7fc8e4a904a2592305bc4d, type: 2}
   m_IsPrefabAsset: 0

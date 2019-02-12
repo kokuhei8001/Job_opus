@@ -30,6 +30,7 @@ public class MapCreate : MonoBehaviour
     [SerializeField] private GameObject GroundObject = null;//地面のオブジェクト
     [SerializeField] private float CrackLength = 1.0f;      //オブジェクト同士の隙間距離
     [SerializeField] private int EnemySize = 0;             //エネミーの数
+    [SerializeField] private bool ceiling;
 
     //Mapのデータ
     public MapStatus[,] Map;
@@ -66,32 +67,25 @@ public class MapCreate : MonoBehaviour
         //ダンジョンを生成
         ResetMapData();
         CreateSpaceData();
-
-        if (Player != null)
-        {
-            PlayerPop();
-        }
-        for (int i = 0; i < EnemySize; i++)
-        {
-            EnemyPop();
-        }
-        if (Goal != null)
-        {
-            GorlPop();
-        }
         CreateDangeon();
 
+        //プレイヤー、敵、ゴールを配置する
+        if (Player != null) { PlayerPop(); }
+        for (int i = 0; i < EnemySize; i++){ EnemyPop(); }
+        if (Goal != null){ GorlPop(); }
+        
+        //Managerにプレイヤーとゴールの位置を渡す
         Manager.PlayerPos = PlayerPopPos;
         Manager.GorlPos = GorlPopPos;
-        //MakeGorl();
     }
+
     //Mapデータのリセット
     private void ResetMapData()
     {
         //GameManager------------------------------------------------------------------------------------------------------------------------
         Manager.Map = new MapData[MapHeight, MapWidth];
-        Manager.roomData = new RoomData[MapHeight, MapWidth];
-        Manager.roadData = new RoadData[MapHeight, MapWidth];
+        //Manager.roomData = new RoomData[MapHeight, MapWidth];
+        //Manager.roadData = new RoadData[MapHeight, MapWidth];
         for (int i = 0; i < MapHeight; i++)
         {
             for (int k = 0; k < MapWidth; k++)
@@ -99,8 +93,8 @@ public class MapCreate : MonoBehaviour
                 Manager.Map[i, k] = new MapData();
                 Manager.Map[i, k].Status = MapStatus.Wall;
 
-                Manager.roomData[i, k] = new RoomData();
-                Manager.roadData[i, k] = new RoadData();
+                //Manager.roomData[i, k] = new RoomData();
+                //Manager.roadData[i, k] = new RoadData();
             }
         }
         //MapCreate------------------------------------------------------------------------------------------------------------------------
@@ -165,7 +159,7 @@ public class MapCreate : MonoBehaviour
             {
                 for (int b = roomPointX; b < roomPointX + roomWidth; b++)
                 {
-                    Manager.Map[a, b].Pos = new Vector2Int(b, a);
+                    Manager.Map[a, b].Pos = new Vector2Int(a , b);
                     Manager.Map[a, b].Status = MapStatus.Room;
                     //Manager.roomData[a, b].roomNum = i;
                     //Manager.roomData[a, b].Height = roomHeight;
@@ -191,10 +185,6 @@ public class MapCreate : MonoBehaviour
     {
         for (int i = 0 - 1; i < roomHeight + 1; i++){
             for (int k = 0 - 1; k < roomWidth + 1; k++){
-                //if (roomPointY + i < 0 || roomPointX + k < 0)
-                //{
-                //    continue;
-                //}
                 if (Map[roomPointX + i, roomPointY + k] == MapStatus.Room)
                 {
                     return true;
@@ -252,16 +242,13 @@ public class MapCreate : MonoBehaviour
 
         //通路を引くプログラム
         bool InRoom = false;    //部屋に当たったらそれ以上通路を引きたい。しかし、制作した瞬間の部屋も対象にしているため。自分の部屋を抜けた時にtrueにする
-        bool IsContinue = true; //whileを制御するための変数
-        if (IsContinue) { IsContinue = true; }//Warning回避のための一行
 
         //全部同じパターンだと単調になってしますから上から延ばすか横から延ばすかの2パターン用意する
         if (Random.Range(0, 2) == 0)
         {
+            //左右に伸ばして上下に伸ばすパターン
             InRoom = false;
-            IsContinue = true;
             while (roadStartPointX != meetPointX)
-            //while (IsContinue)
             {
                 Map[roadStartPointX, roadStartPointY] = MapStatus.Road;
                 if (isRight == true)
@@ -274,9 +261,6 @@ public class MapCreate : MonoBehaviour
                 }
 
                 //部屋に当たった時点で終了させる
-                //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", InRoom);
-                //CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", InRoom,IsContinue);
-
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
                 { InRoom = true; }
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
@@ -289,9 +273,7 @@ public class MapCreate : MonoBehaviour
                 }
             }
             InRoom = false;
-            IsContinue = true;
             while(roadStartPointY != meetPointY)
-            //while (IsContinue)
             {
                 Map[roadStartPointX, roadStartPointY] = MapStatus.Road;
                 if (isUnder == true)
@@ -303,7 +285,6 @@ public class MapCreate : MonoBehaviour
                     roadStartPointY--;
                 }
                 //部屋の当たった時点で終了させる
-                //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointY, "Y", InRoom);
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
                 { InRoom = true; }                     
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
@@ -318,10 +299,9 @@ public class MapCreate : MonoBehaviour
         }
         else
         {
+            // 上下に伸ばして左右に伸ばすパターン
             InRoom = false;
-            IsContinue = true;
             while (roadStartPointY != meetPointY)
-            //while (IsContinue)
             {
                 Map[roadStartPointX, roadStartPointY] = MapStatus.Road;
                 if (isUnder == true)
@@ -333,8 +313,6 @@ public class MapCreate : MonoBehaviour
                     roadStartPointY--;
                 }
                 //部屋の当たった時点で終了させる               
-                //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointY, "Y", InRoom);
-
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
                 { InRoom = true; }                     
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
@@ -347,9 +325,7 @@ public class MapCreate : MonoBehaviour
                 }
             }
             InRoom = false;
-            IsContinue = true;
             while (roadStartPointX != meetPointX)
-            //while (IsContinue)
             {
 
                 Map[roadStartPointX, roadStartPointY] = MapStatus.Road;
@@ -362,7 +338,6 @@ public class MapCreate : MonoBehaviour
                     roadStartPointX++;
                 }
                 //部屋の当たった時点で終了させる
-                //IsContinue = CheckRoom(roadStartPointY, roadStartPointX, meetPointX, "X", InRoom);
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
                 { InRoom = true; }                     
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
@@ -377,50 +352,6 @@ public class MapCreate : MonoBehaviour
         }//if()else
     }//void CreatRoadData
 
-    //通路を作る際にwhileを抜ける関数
-    //bool CheckRoom(int PointY, int PointX, int meetPoint, string dis, bool InRoom)
-    //{
-    //    if (dis == "X") { if (PointX == meetPoint) return false; }
-    //    if (dis == "Y") { if (PointY == meetPoint) return false; }
-        
-    //    //Debug.Log("X:" + PointX + " Y:" + PointY + " END:" + meetPoint + " room: " + InRoom);
-    //    if (Map[PointY, PointX] == MapStatus.Wall)
-    //    {
-    //        InRoom = true;
-    //        return true;
-    //    }
-    //    else if (Map[PointY, PointX] == MapStatus.Room)
-    //    {
-    //        if (InRoom)
-    //        {
-    //            return false;
-    //        }
-    //        else
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    else { return true; }
-    //}
-
-    //部屋に当たったらwhileを抜ける関数
-    //void CheckRoom(int PointY, int PointX,int meetPoint,string dis, bool InRoom, bool IsContinue)
-    //{
-    //    if (dis == "X") { if (PointX == meetPoint) IsContinue = false; }
-    //    if (dis == "Y") { if (PointY == meetPoint) IsContinue = false; }
-    //
-    //    Debug.Log("X:" + PointX+" Y:"+ PointY +" END:" + meetPoint + " room: "+ InRoom +" *while: " + IsContinue);
-    //    if (Map[PointY, PointX] == MapStatus.Wall)
-    //    { InRoom = true; }
-    //    if (Map[PointY, PointX] == MapStatus.Room)
-    //    {
-    //        if (InRoom)
-    //        {
-    //            IsContinue = false;
-    //        }
-    //    }
-    //}
-
     //ダンジョンをオブジェクトに起こして生成する
     private void CreateDangeon()
     {
@@ -434,10 +365,13 @@ public class MapCreate : MonoBehaviour
                 if (Map[k,i] == MapStatus.Wall)
                 {
                     Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
-                    Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform); //力技で高さをいじってる
+                    Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform);//2段置いて壁にしている
                 }
                 GameObject _Ground = Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
-                GameObject _UPLord = Instantiate(GroundObject, new Vector3(k * CrackLength, 2, i * CrackLength), Quaternion.identity, Parent.transform);
+                if (ceiling)
+                {
+                    Instantiate(GroundObject, new Vector3(k * CrackLength, 2, i * CrackLength), Quaternion.identity, Parent.transform);
+                }
                 _Ground.name = "Ground[" + i + "," + k + "]";
                 GroundData G = _Ground.GetComponent<GroundData>();
                 if (G != null)
@@ -456,7 +390,6 @@ public class MapCreate : MonoBehaviour
         PlayerPopRoom = Random.Range(0, roomCount);
         int PopPosX = Random.Range(room[PlayerPopRoom].Pos.x, room[PlayerPopRoom].Pos.x + room[PlayerPopRoom].Size.x);
         int PopPosY = Random.Range(room[PlayerPopRoom].Pos.y, room[PlayerPopRoom].Pos.y + room[PlayerPopRoom].Size.y);
-        //Instantiate(Player, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
         Instantiate(Player, new Vector3(PopPosX * CrackLength, -0.5f, PopPosY * CrackLength), Quaternion.identity);
 
         PlayerPopPos = new Vector2Int(PopPosX, PopPosY);
@@ -479,7 +412,6 @@ public class MapCreate : MonoBehaviour
         int PopPosX = Random.Range(room[EnemyPopRoom].Pos.x, room[EnemyPopRoom].Pos.x + room[EnemyPopRoom].Size.x);
         int PopPosY = Random.Range(room[EnemyPopRoom].Pos.y, room[EnemyPopRoom].Pos.y + room[EnemyPopRoom].Size.y);
 
-        //Instantiate(Enemy, new Vector3(PopPosX * CrackLength, 1, PopPosY * CrackLength), Quaternion.identity);
         Instantiate(Enemy, new Vector3(PopPosX * CrackLength, -0.5f, PopPosY * CrackLength), Quaternion.identity);
 
     }
@@ -502,63 +434,4 @@ public class MapCreate : MonoBehaviour
 
         GorlPopPos = new Vector2Int(PopPosX, PopPosY);
     }
-
-    ////ゴールを新たに作る
-    //void MakeGorl()
-    //{
-    //    ////部屋の大きさは固定vecter2(3,3)
-    //    //int posX;
-    //    //int posY;
-
-    //    //do
-    //    //{
-    //    //    posX = Random.Range(2, MapWidth - 3 - 2);
-    //    //    posY = Random.Range(2, MapWidth - 3 - 2);
-    //    //}
-    //    //while (IsBooking(3, 3, posX, posY));
-
-    //    //int roadStartPointX = Random.Range(posX, posX + 1);  //部屋に通路を繋ぐ位置
-    //    //int roadStartPointY = Random.Range(posY, posY + 1);
-
-    //    //bool Makeroom = CreateRoomData(3, 3, posX, posY);
-    //    //if (Makeroom == false)
-    //    //{
-    //    //    CreateRoadData(roadStartPointX, roadStartPointY, meetPointsX[Random.Range(0, 0)], meetPointsY[Random.Range(0, 0)]);
-    //    //}
-    //    //Instantiate(Goal, new Vector3(posX * CrackLength, 1, posY * CrackLength), Quaternion.Euler(45, 0, 45)); //identityだと回転軸が０，０，０に戻されてしまう
-
-
-    //    bool isRoad;
-    //    int roomHeight = 0;
-    //    int roomWidth = 0;
-    //    int roomPointX = 0;
-    //    int roomPointY = 0;
-
-    //    int roadStartPointX = 0;
-    //    int roadStartPointY = 0;
-
-    //    while (true)
-    //    {
-    //        roomHeight = 3;     //高さ
-    //        roomWidth = 3;      //横幅
-    //        roomPointX = Random.Range(2, MapWidth - 3 - 2);  //部屋のｘ位置
-    //        roomPointY = Random.Range(2, MapWidth - 3 - 2);  //部屋のｙ位置
-
-    //        if (!IsBooking(roomHeight, roomWidth, roomPointX, roomPointY))
-    //        { break; }
-    //    };
-
-    //    roadStartPointX = Random.Range(roomPointX, roomPointX + roomWidth);  //部屋に通路を繋ぐ位置
-    //    roadStartPointY = Random.Range(roomPointY, roomPointY + roomHeight);
-
-    //    isRoad = CreateRoomData(roomHeight, roomWidth, roomPointX, roomPointY); //部屋に通路を引くかどうか判断する
-
-    //    if (isRoad == false)//他の部屋と重なっていなかったら通路を作る
-    //    {
-    //        CreateRoadData(roadStartPointX, roadStartPointY, meetPointsX[Random.Range(0, 0)], meetPointsY[Random.Range(0, 0)]);
-    //    }
-    //    Instantiate(Goal, new Vector3(roomPointX * CrackLength, 1, roomPointY * CrackLength), Quaternion.Euler(45, 0, 45)); //identityだと回転軸が０，０，０に戻されてしまう
-
-    //}
-
 }
