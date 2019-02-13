@@ -8,9 +8,6 @@
  +Shift ダッシュ<br>
 
 ## 開発環境
-開発期間：実働3か月<br>
-開発メンバー：一人<br>
-
   Unity 2018.2.18f1<br>
   Visual Studio Community 2017<br>
   ver.15.9.5<br>
