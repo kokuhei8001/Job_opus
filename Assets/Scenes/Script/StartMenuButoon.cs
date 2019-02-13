@@ -36,7 +36,14 @@ public class StartMenuButoon : MonoBehaviour {
                 SceneManager.LoadScene("MainGame");
                 break;
             case ButoonType.EndGame:
-                    Application.Quit();
+
+                #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+                #elif UNITY_WEBPLAYER
+		        Application.OpenURL("http://www.yahoo.co.jp/");
+                #else
+		        Application.Quit();
+                #endif
                 break;
             case ButoonType.Ranking:
                 SceneManager.LoadScene("ResultMenu");
