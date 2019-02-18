@@ -23,7 +23,8 @@ public class ASterData
 public class ASterArg : MonoBehaviour {
 
     //Mapのデータを持ってくる
-    [SerializeField] MapCreate _mapCreate; //Mapの情報が格納されているscript
+    [SerializeField] GameManager Manager;
+
     private MapStatus[,] MapData;
     private ASterData[,] MapASterData;
     private List<ASterData> ASterOpenList; //Open状態になっている場所を格納する場所
@@ -36,15 +37,20 @@ public class ASterArg : MonoBehaviour {
     //Asterループ管理
     private bool Surch;
 
+    private void Start()
+    {
+        Manager = GetComponent<GameManager>();
+    }
+
     public List<Vector2Int> ASterkit(Vector2Int _StartPos,Vector2Int _EndPos)
     {
         //mapDataの初期化
-        MapData = new MapStatus[_mapCreate.MapWidth, _mapCreate.MapHeight]; //Mapの情報を持ってくる
-        MapASterData = new ASterData[_mapCreate.MapWidth, _mapCreate.MapHeight];
-        for (int x = 0; x < _mapCreate.MapWidth; x++){
-            for (int y = 0; y < _mapCreate.MapHeight; y++)
+        MapData = new MapStatus[Manager.MapWidth, Manager.MapHeight]; //Mapの情報を持ってくる
+        MapASterData = new ASterData[Manager.MapWidth, Manager.MapHeight];
+        for (int x = 0; x < Manager.MapWidth; x++){
+            for (int y = 0; y < Manager.MapHeight; y++)
             {
-                MapData[x,y] = _mapCreate.Map[x,y];
+                MapData[x,y] = Manager.Map[x,y].Status;
 
                 MapASterData[x, y] = new ASterData();
                 MapASterData[x, y].Pos = new Vector2Int(x, y);
@@ -92,7 +98,7 @@ public class ASterArg : MonoBehaviour {
             {
                 continue;
             }
-            else if (x >= _mapCreate.MapWidth || y >= _mapCreate.MapHeight)
+            else if (x >= Manager.MapWidth || y >= Manager.MapHeight)
             {
                 continue;
             }
