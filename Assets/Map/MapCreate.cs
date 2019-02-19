@@ -113,7 +113,10 @@ public class MapCreate : MonoBehaviour
         roomCount = Random.Range(RoomCountMin, RoomCountMax); //部屋の数を決める
 
         room = new ROOM[roomCount];//Mapデータの配列
+<<<<<<< HEAD
         Manager.RoomCount = roomCount;
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
         Manager.Room = new Room[roomCount]; //GameManager用の----------------------------------------------------------
 
         meetPointsX = new int[meetPointCount]; //通路の集合地点を決める
@@ -156,6 +159,7 @@ public class MapCreate : MonoBehaviour
 
             //部屋のデータをいれてく
             //GameManager------------------------------------------------------------------------------------------------------------------------
+<<<<<<< HEAD
             for (int a = roomPointY; a < roomPointY + roomHeight; a++)
             {
                 for (int b = roomPointX; b < roomPointX + roomWidth; b++)
@@ -167,6 +171,19 @@ public class MapCreate : MonoBehaviour
                     //Manager.roomData[a, b].Width = roomWidth;
                 }
             }
+=======
+            //for (int a = roomPointY; a < roomPointY + roomHeight; a++)
+            //{
+            //    for (int b = roomPointX; b < roomPointX + roomWidth; b++)
+            //    {
+            //        Manager.Map[a, b].Pos = new Vector2Int(a , b);
+            //        Manager.Map[a, b].Status = MapStatus.Room;
+            //        //Manager.roomData[a, b].roomNum = i;
+            //        //Manager.roomData[a, b].Height = roomHeight;
+            //        //Manager.roomData[a, b].Width = roomWidth;
+            //    }
+            //}
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
 
             Manager.Room[i] = new Room();
             Manager.Room[i].Pos = new Vector2Int(roomPointX, roomPointY);
@@ -174,10 +191,10 @@ public class MapCreate : MonoBehaviour
             Manager.Room[i].Size = new Vector2Int(roomWidth, roomHeight);
 
             //MapCreate------------------------------------------------------------------------------------------------------------------------
-            room[i] = new ROOM();
-            room[i].Room_num = i;
-            room[i].Pos = new Vector2Int(roomPointX, roomPointY);
-            room[i].Size = new Vector2Int(roomWidth, roomHeight);
+            //room[i] = new ROOM();
+            //room[i].Room_num = i;
+            //room[i].Pos = new Vector2Int(roomPointX, roomPointY);
+            //room[i].Size = new Vector2Int(roomWidth, roomHeight);
             //ここまで
 
             if (isRoad == false)//他の部屋と重なっていなかったら通路を作る
@@ -195,6 +212,7 @@ public class MapCreate : MonoBehaviour
 
                 //GameManager----------------------------------------------------------------------
                 if (Manager.Map[roomPointX + i, roomPointY + k].Status == MapStatus.Room)
+<<<<<<< HEAD
                 {
                     return true;
                 }
@@ -202,9 +220,18 @@ public class MapCreate : MonoBehaviour
 
                 //MapCreate------------------------------------------------------------------------
                 if (Map[roomPointX + i, roomPointY + k] == MapStatus.Room)
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
                 {
                     return true;
                 }
+
+
+                //MapCreate------------------------------------------------------------------------
+                //if (Map[roomPointX + i, roomPointY + k] == MapStatus.Room)
+                //{
+                //    return true;
+                //}
             }
         }
         return false;
@@ -222,6 +249,7 @@ public class MapCreate : MonoBehaviour
 
                 if (Manager.Map[roomPointX + k, roomPointY + i].Status == MapStatus.Room ||
                     Manager.Map[roomPointX + k, roomPointY + i].Status == MapStatus.Road)
+<<<<<<< HEAD
                 {
                     Manager.Map[roomPointX + k, roomPointY + i].Status = MapStatus.Room;//-------------------------------------ここいる？
                     isRoad = true;
@@ -234,14 +262,28 @@ public class MapCreate : MonoBehaviour
                 //MapCreate------------------------------------
                 if (Map[roomPointX + k, roomPointY + i] == MapStatus.Room || //他の部屋に重なっている
                     Map[roomPointX + k, roomPointY + i] == MapStatus.Road) 　//または道にまたがっていたら道を新たには作らない
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
                 {
-                    Map[roomPointX + k, roomPointY + i] = MapStatus.Room;
+                    Manager.Map[roomPointX + k, roomPointY + i].Status = MapStatus.Room;//-------------------------------------ここいる？
                     isRoad = true;
                 }
                 else
                 {
-                    Map[roomPointX + k, roomPointY + i] = MapStatus.Room;   //部屋のステータスを代入する
+                    Manager.Map[roomPointX + k, roomPointY + i].Status = MapStatus.Room;
                 }
+                
+                //MapCreate------------------------------------
+                //if (Map[roomPointX + k, roomPointY + i] == MapStatus.Room || //他の部屋に重なっている
+                //    Map[roomPointX + k, roomPointY + i] == MapStatus.Road) 　//または道にまたがっていたら道を新たには作らない
+                //{
+                //    Map[roomPointX + k, roomPointY + i] = MapStatus.Room;
+                //    isRoad = true;
+                //}
+                //else
+                //{
+                //    Map[roomPointX + k, roomPointY + i] = MapStatus.Room;   //部屋のステータスを代入する
+                //}
             }
         }
         return isRoad;
@@ -296,6 +338,7 @@ public class MapCreate : MonoBehaviour
 
                 //manager
                 if (Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Wall)
+<<<<<<< HEAD
                 {
                     InRoom = true;
                 }
@@ -309,12 +352,27 @@ public class MapCreate : MonoBehaviour
                 { InRoom = true; }
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
                     Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
                 {
-                    if (InRoom)
-                    {
-                        break;
-                    }
+                    InRoom = true;
                 }
+                if (Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Room ||
+                    Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Road)
+                {
+                    if (InRoom) break;
+                }
+                //MapCreat---------------------------------------------------------------------------
+                //if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
+                //{ InRoom = true; }
+                //if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
+                //    Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
+                //{
+                //    if (InRoom)
+                //    {
+                //        break;
+                //    }
+                //}
             }
             InRoom = false;
             while(roadStartPointY != meetPointY)
@@ -337,6 +395,7 @@ public class MapCreate : MonoBehaviour
                 }
                 if (Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Room ||
                     Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Road)
+<<<<<<< HEAD
                 {
                     if (InRoom) break;
                 }
@@ -345,12 +404,22 @@ public class MapCreate : MonoBehaviour
                 { InRoom = true; }
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
                     Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
                 {
-                    if (InRoom)
-                    {
-                        break;
-                    }
+                    if (InRoom) break;
                 }
+                //MapCreat---------------------------------------------------------------------------
+                //if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
+                //{ InRoom = true; }                     
+                //if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
+                //    Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
+                //{
+                //    if (InRoom)
+                //    {
+                //        break;
+                //    }
+                //}
             }
         }
         else
@@ -377,6 +446,7 @@ public class MapCreate : MonoBehaviour
                 }
                 if (Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Room ||
                     Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Road)
+<<<<<<< HEAD
                 {
                     if (InRoom) break;
                 }
@@ -385,12 +455,22 @@ public class MapCreate : MonoBehaviour
                 { InRoom = true; }
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
                     Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
                 {
-                    if (InRoom)
-                    {
-                        break;
-                    }
+                    if (InRoom) break;
                 }
+                //MapCreat---------------------------------------------------------------------------
+                //if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
+                //{ InRoom = true; }                     
+                //if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
+                //    Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
+                //{
+                //    if (InRoom)
+                //    {
+                //        break;
+                //    }
+                //}
             }
             InRoom = false;
             while (roadStartPointX != meetPointX)
@@ -413,6 +493,7 @@ public class MapCreate : MonoBehaviour
                 }
                 if (Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Room ||
                     Manager.Map[roadStartPointX, roadStartPointY].Status == MapStatus.Road)
+<<<<<<< HEAD
                 {
                     if (InRoom) break;
                 }
@@ -421,12 +502,22 @@ public class MapCreate : MonoBehaviour
                 { InRoom = true; }
                 if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
                     Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
                 {
-                    if (InRoom)
-                    {
-                        break;
-                    }
+                    if (InRoom) break;
                 }
+                //MapCreat---------------------------------------------------------------------------
+                //if (Map[roadStartPointX, roadStartPointY] == MapStatus.Wall)
+                //{ InRoom = true; }                     
+                //if (Map[roadStartPointX, roadStartPointY] == MapStatus.Room ||
+                //    Map[roadStartPointX, roadStartPointY] == MapStatus.Road)
+                //{
+                //    if (InRoom)
+                //    {
+                //        break;
+                //    }
+                //}
             }
         }//if()else
     }//void CreatRoadData
@@ -442,6 +533,7 @@ public class MapCreate : MonoBehaviour
             for (int k = 0; k < MapWidth; k++)
             {
                 //GameManager-----------------------------------------------------------------------
+<<<<<<< HEAD
                 //if (Manager.Map[k,i].Status == MapStatus.Wall)
                 //{
                 //    Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
@@ -449,10 +541,22 @@ public class MapCreate : MonoBehaviour
                 //}
                 //MapCreat--------------------------------------------------------------------------
                 if (Map[k, i] == MapStatus.Wall)
+=======
+                if (Manager.Map[i, k].Status == MapStatus.Wall)
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
                 {
                     Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
                     Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform);//2段置いて壁にしている
                 }
+<<<<<<< HEAD
+=======
+                //MapCreat--------------------------------------------------------------------------
+                //if (Map[k,i] == MapStatus.Wall)
+                //{
+                //    Instantiate(WallObject, new Vector3(k * CrackLength, 0, i * CrackLength), Quaternion.identity, Parent.transform);
+                //    Instantiate(WallObject, new Vector3(k * CrackLength, 1, i * CrackLength), Quaternion.identity, Parent.transform);//2段置いて壁にしている
+                //}
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
                 //-----------------------------------------------------------------------------------------------------------------------
                 GameObject _Ground = Instantiate(GroundObject, new Vector3(k * CrackLength, -1, i * CrackLength), Quaternion.identity, Parent.transform);
                 if (ceiling)

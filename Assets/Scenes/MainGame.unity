@@ -383,6 +383,7 @@ Prefab:
         type: 2}
       propertyPath: ceiling
       value: 0
+<<<<<<< HEAD
       objectReference: {fileID: 0}
     - target: {fileID: 114928854154930326, guid: 687c1ef15b7fc8e4a904a2592305bc4d,
         type: 2}
@@ -393,6 +394,8 @@ Prefab:
         type: 2}
       propertyPath: EnemySize
       value: 1
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 687c1ef15b7fc8e4a904a2592305bc4d, type: 2}

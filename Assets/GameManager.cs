@@ -36,9 +36,12 @@ public class GameManager : MonoBehaviour {
 
     public MapData[,] Map;
     public Room[] Room;
+<<<<<<< HEAD
     public int RoomCount;
     public int MapWidth = 50;
     public int MapHeight = 50;
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
 
     public Vector2Int PlayerPos;
     public Vector2Int GorlPos;
