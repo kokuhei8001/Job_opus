@@ -25,38 +25,34 @@ public class MapData
     public MapStatus Status;
 }
 
-public class RoomData : MapData
+public class Room : MapData
 {
     //Roomの情報
-    public int roomNum;
-    public int Width;
-    public int Height;
-}
-
-public class RoadData : MapData
-{   
-    //Raodの情報
-    int StartRoomNum;
-    int EndRoomNum;
-    Vector2Int StartPos;
-    Vector2Int EndPos;
+    public int Num;
+    public Vector2Int Size; // Vector2Int( width , height );
 }
 
 public class GameManager : MonoBehaviour {
 
-    public Vector2Int Score = new Vector2Int(0,0);
-    private float _second = 0;
-
     public MapData[,] Map;
-    public RoomData[,] roomData;
-    public RoadData[,] roadData;
+    public Room[] Room;
+<<<<<<< HEAD
+    public int RoomCount;
+    public int MapWidth = 50;
+    public int MapHeight = 50;
+=======
+>>>>>>> 27dcafa932f573b7918e14a2d5ae7aacb501b779
 
     public Vector2Int PlayerPos;
     public Vector2Int GorlPos;
 
-
+    //TimeScore
+    public Vector2Int Score;
+    private float _second = 0;
+    
     private void Update()
     {
+        //プレイ中の時間（スコア）
         _second += Time.deltaTime;
         if (_second > 60)
         {
@@ -66,8 +62,6 @@ public class GameManager : MonoBehaviour {
 
         Score = new Vector2Int(Score.x, (int)_second);
     }
-
-
 
     //始点から目的地までを探索し、ルートをvecter2Intのリストで返す
     //注意：リストの中身は終点から始点へのルートになっている。
@@ -79,7 +73,7 @@ public class GameManager : MonoBehaviour {
         return _aster.ASterkit(FromPos, _gorlPos);
     }
 
-    //キャラクターが自分の座標を取得するのに使う
+    //キャラクターがRayを足元に飛ばして自分の座標を取得するのに使う
     public Vector2Int GetPosData(GameObject myself)
     {
         Vector3 under = new Vector3(0, -90, 0);

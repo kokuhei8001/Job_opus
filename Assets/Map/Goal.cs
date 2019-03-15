@@ -19,6 +19,16 @@ public class Goal : MonoBehaviour {
     {
         //分かりやすいように回転させる
         transform.Rotate(new Vector3(0, -1.0f, 0),Space.World);
+
+        //デバッグ
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _Savedata.SaveToJson(manager.Score);
+
+            SceneManager.LoadScene("ResultMenu");
+            Debug.Log("GameClear!!");
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)

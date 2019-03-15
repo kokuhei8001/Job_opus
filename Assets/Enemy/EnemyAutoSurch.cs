@@ -8,7 +8,7 @@ public class EnemyAutoSurch : MonoBehaviour {
 
     //他のスクリプトへのリンク
     private GameObject _Manager;
-    private GameManager _gameManager;
+    private GameManager _GameManager;
     private EnemyController _enemyManager;
     private MapCreate _mapcreat;
     
@@ -23,7 +23,7 @@ public class EnemyAutoSurch : MonoBehaviour {
     {
         //必要なスクリプトを取得する
         _Manager = GameObject.Find("GameManager");
-        _gameManager = _Manager.GetComponent<GameManager>();
+        _GameManager = _Manager.GetComponent<GameManager>();
         _mapcreat = _Manager.GetComponent<MapCreate>();
         _enemyManager = GetComponent<EnemyController>();
 
@@ -73,12 +73,15 @@ public class EnemyAutoSurch : MonoBehaviour {
     public void RoutReset()
     {
         Rout = new List<Vector2Int>();
-
         int TargetRoom = Random.Range(0, _mapcreat.roomCount);
-        int TargetX = Random.Range(_mapcreat.room[TargetRoom].Pos.x, _mapcreat.room[TargetRoom].Pos.x + _mapcreat.room[TargetRoom].Size.x);
-        int TargetY = Random.Range(_mapcreat.room[TargetRoom].Pos.y, _mapcreat.room[TargetRoom].Pos.y + _mapcreat.room[TargetRoom].Size.y);
+        int TargetX = Random.Range(_GameManager.Room[TargetRoom].Pos.x, _GameManager.Room[TargetRoom].Pos.x + _GameManager.Room[TargetRoom].Size.x);
+        int TargetY = Random.Range(_GameManager.Room[TargetRoom].Pos.y, _GameManager.Room[TargetRoom].Pos.y + _GameManager.Room[TargetRoom].Size.y);
+
+        //int TargetRoom = Random.Range(0, _mapcreat.roomCount);
+        //int TargetX = Random.Range(_mapcreat.room[TargetRoom].Pos.x, _mapcreat.room[TargetRoom].Pos.x + _mapcreat.room[TargetRoom].Size.x);
+        //int TargetY = Random.Range(_mapcreat.room[TargetRoom].Pos.y, _mapcreat.room[TargetRoom].Pos.y + _mapcreat.room[TargetRoom].Size.y);
 
         Vector2Int End = new Vector2Int(TargetX,TargetY);//目的地の座標
-        Rout = _gameManager.ASter(this.gameObject, End);        
+        Rout = _GameManager.ASter(this.gameObject, End);        
     }
 }
